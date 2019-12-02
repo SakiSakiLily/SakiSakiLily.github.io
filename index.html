@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1.2k
                 </span>
               
 
@@ -387,8 +387,11 @@
       
         
           
-          第三届强网杯 WEB-Upload WriteUp这一题主要考察了代码审计+反序列化过程的理解打开题目是个登录框,由于题目名字是upload先随便注册个账号登录看看,发现有一个上传点,
-用蚁剑生成一段木马,加上GIF89a文件头上传,上传的图片会在首页显示,可以看到文件被重命名为一串MD5.png的
+          第三届强网杯 WEB-Upload WriteUp这一题主要考察了代码审计+反序列化过程的理解打开题目是个登录框
+由于题目名字是upload先随便注册个账号登录看看,发现有一个上传点,
+用蚁剑生成shell,加上GIF89a文件头上传
+可以看到这里的cookie是一串base64,decode一下
+
           ...
           <!--noindex-->
           <div class="post-button text-center">

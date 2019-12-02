@@ -102,7 +102,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;qwb-upload&#x2F;dir.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;qwb-upload&#x2F;as1.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;qwb-upload&#x2F;as2.png">
-<meta property="og:updated_time" content="2019-12-02T13:18:18.468Z">
+<meta property="og:updated_time" content="2019-12-02T13:25:38.507Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;qwb-upload&#x2F;login.png">
 
@@ -468,7 +468,7 @@
 <p>再用<code>蚁剑</code>连接即可<code>getshell</code></p>
 <p><img src="/images/qwb-upload/as1.png" alt="as1"></p>
 <p><img src="/images/qwb-upload/as2.png" alt="as2"></p>
-<h2 id="part-4-攻击流程"><a href="#part-4-攻击流程" class="headerlink" title="part 4 攻击流程"></a>part 4 攻击流程</h2><p><code>Index.php</code>中<code>unserialize</code><br>=&gt;<code>Register.php</code>中<code>__destruct</code>执行<code>Profile</code>对象的<code>index()</code><br>=&gt;触发<code>Profile.php</code>中<code>__call(&#39;index&#39;,&quot;&quot;)</code><br>=&gt;触发<code>Profile.php</code>中<code>__get</code>执行<code>except[&#39;index&#39;]</code><br>=&gt;<code>except[&#39;index&#39;]</code>即<code>upload_img</code>修改文件名</p>
+<h2 id="part-4-攻击流程"><a href="#part-4-攻击流程" class="headerlink" title="part 4 攻击流程"></a>part 4 攻击流程</h2><p><code>Index.php</code>中<code>unserialize</code><br>=&gt;<code>Register.php</code>中<code>__destruct</code>执行<code>Profile</code>对象的<code>index()</code><br>=&gt;触发<code>Profile.php</code>中<code>__call(&#39;index&#39;,&quot;&quot;)</code><br>=&gt;触发<code>Profile.php</code>中<code>__get</code>执行<code>except[&#39;index&#39;]</code><br>=&gt;调用<code>except[&#39;index&#39;]</code>即<code>upload_img</code>修改文件名</p>
 
       
     </div>

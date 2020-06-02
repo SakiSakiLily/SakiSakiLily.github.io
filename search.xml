@@ -31,8 +31,8 @@
 <p><img src="/2020/06/02/bilibili/flag.png" alt="flag"></p>
 ]]></content>
       <tags>
-        <tag>python</tag>
         <tag>反序列化</tag>
+        <tag>python</tag>
         <tag>JWT</tag>
       </tags>
   </entry>
@@ -225,9 +225,9 @@
         <category>CTF-WEB</category>
       </categories>
       <tags>
-        <tag>反序列化</tag>
         <tag>强网杯</tag>
         <tag>CTF</tag>
+        <tag>反序列化</tag>
       </tags>
   </entry>
   <entry>

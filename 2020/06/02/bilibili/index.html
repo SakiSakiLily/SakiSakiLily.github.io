@@ -86,13 +86,13 @@
 
 
 
-<meta name="description" content="CISCN 2019-WEB-Bilibili WP这一题主要考察JWT的伪造以及Pikle反序列化 Part 1  打开题目，居然觉得有点怀念，互联网时代的时间过得就是快，kunkun的梗好像都已经过了很久了。  页面下方是一堆B站低级账号，看样子是要拿下六级号?随便注册一个账号，默认有1000余额那些去找目标商品—-六级号，翻了好几页都没影，估计是个坑，写脚本来找 1234567import">
+<meta name="description" content="这一题主要考察JWT的伪造以及Pikle反序列化 Part 1  打开题目，居然觉得有点怀念，互联网时代的时间过得就是快，kunkun的梗好像都已经过了很久了。  页面下方是一堆B站低级账号，看样子是要拿下六级号?随便注册一个账号，默认有1000余额那些去找目标商品—-六级号，翻了好几页都没影，估计是个坑，写脚本来找 1234567import requestsurl=&quot;http:&#x2F;&#x2F;220.24">
 <meta name="keywords" content="python,反序列化,JWT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CISCN 2019-Bilibili">
+<meta property="og:title" content="CISCN 2019-Bilibili WP">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;02&#x2F;bilibili&#x2F;index.html">
 <meta property="og:site_name" content="君の银の庭">
-<meta property="og:description" content="CISCN 2019-WEB-Bilibili WP这一题主要考察JWT的伪造以及Pikle反序列化 Part 1  打开题目，居然觉得有点怀念，互联网时代的时间过得就是快，kunkun的梗好像都已经过了很久了。  页面下方是一堆B站低级账号，看样子是要拿下六级号?随便注册一个账号，默认有1000余额那些去找目标商品—-六级号，翻了好几页都没影，估计是个坑，写脚本来找 1234567import">
+<meta property="og:description" content="这一题主要考察JWT的伪造以及Pikle反序列化 Part 1  打开题目，居然觉得有点怀念，互联网时代的时间过得就是快，kunkun的梗好像都已经过了很久了。  页面下方是一堆B站低级账号，看样子是要拿下六级号?随便注册一个账号，默认有1000余额那些去找目标商品—-六级号，翻了好几页都没影，估计是个坑，写脚本来找 1234567import requestsurl=&quot;http:&#x2F;&#x2F;220.24">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;02&#x2F;bilibili&#x2F;main.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;02&#x2F;bilibili&#x2F;home.png">
@@ -107,7 +107,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;02&#x2F;bilibili&#x2F;py1.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;02&#x2F;bilibili&#x2F;list.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;02&#x2F;bilibili&#x2F;flag.png">
-<meta property="og:updated_time" content="2020-06-02T16:51:15.952Z">
+<meta property="og:updated_time" content="2020-06-02T16:53:49.348Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;02&#x2F;bilibili&#x2F;main.png">
 
@@ -145,7 +145,7 @@
 
 
 
-  <title>CISCN 2019-Bilibili | 君の银の庭</title>
+  <title>CISCN 2019-Bilibili WP | 君の银の庭</title>
   
 
 
@@ -317,7 +317,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CISCN 2019-Bilibili</h1>
+          <h1 class="post-title" itemprop="name headline">CISCN 2019-Bilibili WP</h1>
         
 
         <div class="post-meta">
@@ -361,7 +361,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  543
+                  539
                 </span>
               
 
@@ -398,8 +398,8 @@
       
 
       
-        <h1 id="CISCN-2019-WEB-Bilibili-WP"><a href="#CISCN-2019-WEB-Bilibili-WP" class="headerlink" title="CISCN 2019-WEB-Bilibili WP"></a>CISCN 2019-WEB-Bilibili WP</h1><p>这一题主要考察<code>JWT</code>的伪造以及<code>Pikle</code>反序列化</p>
-<h2 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h2><p>  打开题目，居然觉得有点怀念，互联网时代的时间过得就是快，kunkun的梗好像都已经过了很久了。<br>  页面下方是一堆B站低级账号，看样子是要拿下六级号?<br><img src="/2020/06/02/bilibili/main.png" alt="main"><br>随便注册一个账号，默认有1000余额<br><img src="/2020/06/02/bilibili/home.png" alt="home"><br>那些去找目标商品—-六级号，翻了好几页都没影，估计是个坑，写脚本来找</p>
+        <p>这一题主要考察<code>JWT</code>的伪造以及<code>Pikle</code>反序列化</p>
+<h1 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h1><p>  打开题目，居然觉得有点怀念，互联网时代的时间过得就是快，kunkun的梗好像都已经过了很久了。<br>  页面下方是一堆B站低级账号，看样子是要拿下六级号?<br><img src="/2020/06/02/bilibili/main.png" alt="main"><br>随便注册一个账号，默认有1000余额<br><img src="/2020/06/02/bilibili/home.png" alt="home"><br>那些去找目标商品—-六级号，翻了好几页都没影，估计是个坑，写脚本来找</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url=<span class="string">"http://220.249.52.134:55687/shop?page="</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>,<span class="number">10000</span>):</span><br><span class="line">    r=requests.get(url+str(i))</span><br><span class="line">    <span class="keyword">if</span> <span class="string">"lv6.png"</span> <span class="keyword">in</span> r.text:</span><br><span class="line">        print(<span class="string">"[+]"</span>+url+str(i))</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
 <p>执行结果:<br><img src="/2020/06/02/bilibili/res.png" alt="lv6"></p>
 <p>不得不说,这个lv6有点贵</p>
@@ -618,7 +618,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CISCN-2019-WEB-Bilibili-WP"><span class="nav-number">1.</span> <span class="nav-text">CISCN 2019-WEB-Bilibili WP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1"><span class="nav-number">1.1.</span> <span class="nav-text">Part 1</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-2-JWT伪造"><span class="nav-number">2.</span> <span class="nav-text">part 2 JWT伪造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-3-pickle反序列化利用"><span class="nav-number">3.</span> <span class="nav-text">Part 3 pickle反序列化利用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1"><span class="nav-number">1.</span> <span class="nav-text">Part 1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-2-JWT伪造"><span class="nav-number">2.</span> <span class="nav-text">part 2 JWT伪造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-3-pickle反序列化利用"><span class="nav-number">3.</span> <span class="nav-text">Part 3 pickle反序列化利用</span></a></li></ol></div>
             
 
           </div>

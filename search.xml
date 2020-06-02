@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CISCN 2019-Bilibili</title>
+    <title>CISCN 2019-Bilibili WP</title>
     <url>/2020/06/02/bilibili/</url>
-    <content><![CDATA[<h1 id="CISCN-2019-WEB-Bilibili-WP"><a href="#CISCN-2019-WEB-Bilibili-WP" class="headerlink" title="CISCN 2019-WEB-Bilibili WP"></a>CISCN 2019-WEB-Bilibili WP</h1><p>这一题主要考察<code>JWT</code>的伪造以及<code>Pikle</code>反序列化</p>
-<h2 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h2><p>  打开题目，居然觉得有点怀念，互联网时代的时间过得就是快，kunkun的梗好像都已经过了很久了。<br>  页面下方是一堆B站低级账号，看样子是要拿下六级号?<br><img src="/2020/06/02/bilibili/main.png" alt="main"><br>随便注册一个账号，默认有1000余额<br><img src="/2020/06/02/bilibili/home.png" alt="home"><br>那些去找目标商品—-六级号，翻了好几页都没影，估计是个坑，写脚本来找</p>
+    <content><![CDATA[<p>这一题主要考察<code>JWT</code>的伪造以及<code>Pikle</code>反序列化</p>
+<h1 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h1><p>  打开题目，居然觉得有点怀念，互联网时代的时间过得就是快，kunkun的梗好像都已经过了很久了。<br>  页面下方是一堆B站低级账号，看样子是要拿下六级号?<br><img src="/2020/06/02/bilibili/main.png" alt="main"><br>随便注册一个账号，默认有1000余额<br><img src="/2020/06/02/bilibili/home.png" alt="home"><br>那些去找目标商品—-六级号，翻了好几页都没影，估计是个坑，写脚本来找</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url=<span class="string">"http://220.249.52.134:55687/shop?page="</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>,<span class="number">10000</span>):</span><br><span class="line">    r=requests.get(url+str(i))</span><br><span class="line">    <span class="keyword">if</span> <span class="string">"lv6.png"</span> <span class="keyword">in</span> r.text:</span><br><span class="line">        print(<span class="string">"[+]"</span>+url+str(i))</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
 <p>执行结果:<br><img src="/2020/06/02/bilibili/res.png" alt="lv6"></p>
 <p>不得不说,这个lv6有点贵</p>

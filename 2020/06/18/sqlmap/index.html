@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="sql注入," />
 
 
 
@@ -86,14 +86,18 @@
 
 
 
-<meta name="description" content="I spent all my expression and fled from the crowd">
-<meta property="og:type" content="website">
-<meta property="og:title" content="君の银の庭">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;shell&#x2F;index.html">
+<meta name="description" content="Part 1 参数设置设置HTTP方法虽然sqlmap会自动使用合适的请求方式,但某些情况下需要强制指定.使用--method=X POST提交数据默认情况下，是以GET方式请求，但可以通过发送POST请求中的数据隐式地将请求方式改为POST。使用--data=&amp;quot;x=xx&amp;quot; 参数分隔符某些情况下,需要指定参数的分隔符（默认是&amp;amp;）。使用:--param-del=&amp;quot">
+<meta name="keywords" content="sql注入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqlmap备忘">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;18&#x2F;sqlmap&#x2F;index.html">
 <meta property="og:site_name" content="君の银の庭">
-<meta property="og:description" content="I spent all my expression and fled from the crowd">
+<meta property="og:description" content="Part 1 参数设置设置HTTP方法虽然sqlmap会自动使用合适的请求方式,但某些情况下需要强制指定.使用--method=X POST提交数据默认情况下，是以GET方式请求，但可以通过发送POST请求中的数据隐式地将请求方式改为POST。使用--data=&amp;quot;x=xx&amp;quot; 参数分隔符某些情况下,需要指定参数的分隔符（默认是&amp;amp;）。使用:--param-del=&amp;quot">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;18&#x2F;sqlmap&#x2F;01.png">
+<meta property="og:updated_time" content="2020-06-18T12:55:20.830Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;18&#x2F;sqlmap&#x2F;01.png">
 
 
 
@@ -123,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/shell/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/06/18/sqlmap/"/>
 
 
 
 
 
-  <title>标签: shell | 君の银の庭</title>
+  <title>sqlmap备忘 | 君の银の庭</title>
   
 
 
@@ -152,7 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -270,54 +274,292 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>shell<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/18/sqlmap/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L42y">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="君の银の庭">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/11/27/reverseShell/" itemprop="url">
-              
-                <span itemprop="name">反弹shell姿势总结</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">sqlmap备忘</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-27T16:40:54+08:00"
-              content="2019-11-27" >
-          11-27
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-18T18:31:13+08:00">
+                2020-06-18
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Part-1-参数设置"><a href="#Part-1-参数设置" class="headerlink" title="Part 1 参数设置"></a>Part 1 参数设置</h2><h3 id="设置HTTP方法"><a href="#设置HTTP方法" class="headerlink" title="设置HTTP方法"></a>设置HTTP方法</h3><p>虽然<code>sqlmap</code>会自动使用合适的请求方式,但某些情况下需要强制指定.<br>使用<code>--method=X</code></p>
+<h3 id="POST提交数据"><a href="#POST提交数据" class="headerlink" title="POST提交数据"></a>POST提交数据</h3><p>默认情况下，是以<code>GET</code>方式请求，但可以通过发送<code>POST</code>请求中的数据隐式地将请求方式改为<code>POST</code>。<br>使用<code>--data=&quot;x=xx&quot;</code></p>
+<h3 id="参数分隔符"><a href="#参数分隔符" class="headerlink" title="参数分隔符"></a>参数分隔符</h3><p>某些情况下,需要指定参数的分隔符（默认是<code>&amp;</code>）。<br>使用:<code>--param-del=&quot;x&quot;</code></p>
+<h3 id="设置Cookie"><a href="#设置Cookie" class="headerlink" title="设置Cookie"></a>设置Cookie</h3><p>若探测过程中需要<code>Cookie</code>,常用的参数如下</p>
+<p><code>--cookie=x</code></p>
+<p><code>--cookie-del=x  用来分隔cookie的字符串值</code></p>
+<p><code>--load-cookies=x 用来提供包含Netscape/wget格式的Cookie的特殊文件</code></p>
+<p><code>--drop-set-cookie=x 忽略响应中的Set-Cookie头</code></p>
+<p>当<code>–level</code>参数设定为<code>2</code>或者<code>2</code>以上的时候，会尝试对<code>cookie</code>进行探测。</p>
+<h3 id="User-Agent"><a href="#User-Agent" class="headerlink" title="User-Agent"></a>User-Agent</h3><p>默认情况下<code>sqlmap</code>的<code>HTTP</code>请求头中<code>User-Agent</code>值是:<code>sqlmap/1.0-dev-xxxxxxx(http://sqlmap.org)</code></p>
+<p>使用<code>--user-agent=x</code>来指定请求中的<code>User-Agent</code></p>
+<p><code>--random-agent</code>会从<code>data/txt/user-agents</code>中随机选择一个作为请求中的<code>User-Agent</code></p>
+<p>当<code>–level</code>参数设定为<code>3</code>或者<code>3</code>以上的时候，会尝试对<code>User-Agent</code>进行注入。</p>
+<h3 id="Referer"><a href="#Referer" class="headerlink" title="Referer"></a>Referer</h3><p>使用<code>--referer=x</code>指定。</p>
+<p>当<code>–level</code>参数设定为<code>3</code>或者<code>3</code>以上的时候，会尝试对<code>referer</code>进行探测。</p>
+<h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><p><code>-H HEADER</code>,额外的<code>http</code>头(<code>e.g.”X-Forwarded-For: 127.0.0.1″</code>)</p>
+<p><code>–headers=HEADERS</code>,可以通过<code>–headers</code>参数来增加额外的<code>http</code>头(<code>e.g.”Accept-Language: fr\nETag: 123″</code>)</p>
+<h3 id="注入位置"><a href="#注入位置" class="headerlink" title="注入位置"></a>注入位置</h3><p><code>-p &quot;a,b&quot;具体注入参数，可有多个，包括http头</code></p>
+<p><code>--skip &quot;a,b&quot; 忽略探测参数，包括http头</code></p>
+<p><code>--param-exclude 忽略包含具体内容的参数</code></p>
+<p><code>--skip-static 忽略静态参数</code></p>
+<p><code>注入点位于URI内部时，默认SQLMap不会对URI进行任何探测,需要添加星号（*）指定注入点</code></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p><code>--auth-type x HTTP认证协议（x=Basic Digest NTLM）</code></p>
+<p><code>--auth-cred username:password 凭证</code></p>
+<p><code>--porxy http(s)://ip:port 设置代理</code> </p>
+<p><code>--porxy-cred username:password 设置代理认证凭证</code></p>
+<p><code>--ignore-proxy 忽略系统范围内的代理</code></p>
+<p><code>--tor 使用Tor匿名网络</code></p>
+<p><code>--tor-port=x 设置Tor代理端口</code></p>
+<p><code>--tor-type=x 设置Tor代理类型(HTTP SOCKS4/5)</code></p>
+<p><code>--check-tor 检查Tor是否正确使用</code></p>
+<p><code>–csrf-token=CSR..  Parameter usedto hold anti-CSRF token参数用来保存反CSRF令牌</code></p>
+<p><code>–csrf-url=CSRFURL  URL地址访问提取anti-CSRF令牌</code></p>
+<p><code>–force-ssl         强制使用SSL/HTTPS</code></p>
+<p><code>–hpp               使用HTTP参数污染的方法</code></p>
+<p><code>–randomize=RPARAM    可以设定某一个参数值在每一次请求中随机的变化，长度和类型会与提供的初始值一样</code></p>
+<h2 id="Part-2-性能优化"><a href="#Part-2-性能优化" class="headerlink" title="Part 2 性能优化"></a>Part 2 性能优化</h2><p><code>-o 可开启所有性能优化参数</code></p>
+<h3 id="持久HTTP连接"><a href="#持久HTTP连接" class="headerlink" title="持久HTTP连接"></a>持久HTTP连接</h3><p>设置持久连接,http报文中设置<code>Connection:Keep-Alive</code>,可加快探测速度,不需要重新建立连接<br>参数<code>--keep-alive</code></p>
+<h3 id="不接收HTTP-Body"><a href="#不接收HTTP-Body" class="headerlink" title="不接收HTTP Body"></a>不接收HTTP Body</h3><p>设置空连接,表示不接受<code>HTTP</code>当中的<code>Body</code>，常用于盲注。</p>
+<p><code>--null-connection</code></p>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><p><code>--thread 默认为1，为了不影响目标的性能,最大线程数为10</code></p>
+<h3 id="预测输出"><a href="#预测输出" class="headerlink" title="预测输出"></a>预测输出</h3><p>参数：<code>--predict-output</code>  与<code>--thread</code>不兼容<br>根据检测方法，比较返回值和统计表内容，不断缩小检测范围，提高检测效率</p>
+<h2 id="Part-3-枚举"><a href="#Part-3-枚举" class="headerlink" title="Part 3 枚举"></a>Part 3 枚举</h2><p>这些选项可以用来列举后端数据库管理系统的信息、表中的结构和数据。此外，您还可以运行自定义的SQL语句。</p>
+<pre><code>   -a, –all           获取所有信息
+
+   -b, –banner        获取数据库管理系统的标识
+
+   –current-user      获取数据库管理系统当前用户
+
+   –current-db        获取数据库管理系统当前数据库
+
+    –hostname         获取数据库服务器的主机名称
+
+   –is-dba            检测DBMS当前用户是否DBA
+
+   –users             枚举数据库管理系统用户
+
+   –passwords         枚举数据库管理系统用户密码哈希
+
+   –privileges        枚举数据库管理系统用户的权限
+
+   –roles            枚举数据库管理系统用户的角色
+
+   –dbs             枚举数据库管理系统数据库
+
+   –tables            枚举的DBMS数据库中的表
+
+   –columns          枚举DBMS数据库表列
+
+   –schema            枚举数据库架构
+
+   –count             检索表的项目数，有时候用户只想获取表中的数据个数而不是具体的内容，那么就可以使用这个参数：sqlmap.py -u url –count -D testdb
+
+   –dump            转储数据库表项
+
+    –dump-all          转储数据库所有表项
+
+   –search           搜索列（S），表（S）和/或数据库名称（S）
+
+   –comments          获取DBMS注释
+
+   -D DB               要进行枚举的指定数据库名
+
+   -T TBL              DBMS数据库表枚举
+
+   -C COL             DBMS数据库表列枚举
+
+   -X EXCLUDECOL     DBMS数据库表不进行枚举
+
+   -U USER           用来进行枚举的数据库用户
+
+   –exclude-sysdbs    枚举表时排除系统数据库
+
+   –pivot-column=P..  Pivot columnname
+
+   –where=DUMPWHERE   Use WHEREcondition while table dumping
+
+   –start=LIMITSTART  获取第一个查询输出数据位置
+
+   –stop=LIMITSTOP   获取最后查询的输出数据
+
+   –first=FIRSTCHAR   第一个查询输出字的字符获取
+
+   –last=LASTCHAR    最后查询的输出字字符获取
+
+   –sql-query=QUERY   要执行的SQL语句
+
+   –sql-shell         提示交互式SQL的shell
+
+   –sql-file=SQLFILE  要执行的SQL文件
+</code></pre><h2 id="Part-4-Tamper"><a href="#Part-4-Tamper" class="headerlink" title="Part 4 Tamper"></a>Part 4 Tamper</h2><h3 id="Tamper-脚本结构"><a href="#Tamper-脚本结构" class="headerlink" title="Tamper 脚本结构"></a>Tamper 脚本结构</h3><p>以自带的<code>base64encode.py</code>为例<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Copyright (c) 2006-2020 sqlmap developers (http://sqlmap.org/)</span></span><br><span class="line"><span class="string">See the file 'LICENSE' for copying permission</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> lib.core.convert <span class="keyword">import</span> encodeBase64</span><br><span class="line"><span class="keyword">from</span> lib.core.enums <span class="keyword">import</span> PRIORITY</span><br><span class="line"></span><br><span class="line">__priority__ = PRIORITY.LOW</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dependencies</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tamper</span><span class="params">(payload, **kwargs)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Base64-encodes all characters in a given payload</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; tamper("1' AND SLEEP(5)#")</span></span><br><span class="line"><span class="string">    'MScgQU5EIFNMRUVQKDUpIw=='</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> encodeBase64(payload, binary=<span class="literal">False</span>) <span class="keyword">if</span> payload <span class="keyword">else</span> payload</span><br></pre></td></tr></table></figure></p>
+<p><code>priority</code>定义脚本的优先级，用于有多个tamper脚本的情况。</p>
+<p><code>dependencies</code>函数声明该脚本适用/不适用的范围、环境版本等等，可以为空。</p>
+<p><code>tamper</code>是主要的函数，接受的参数为<code>payload</code>和<code>**kwargs</code></p>
+<h3 id="通用Tamper"><a href="#通用Tamper" class="headerlink" title="通用Tamper"></a>通用Tamper</h3><p><img src="/2020/06/18/sqlmap/01.png" alt></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag"># sql注入</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/16/jsonp/" rel="next" title="jsonp 以及jsonp劫持">
+                <i class="fa fa-chevron-left"></i> jsonp 以及jsonp劫持
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -325,6 +567,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -345,8 +591,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -426,6 +681,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-参数设置"><span class="nav-number">1.</span> <span class="nav-text">Part 1 参数设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置HTTP方法"><span class="nav-number">1.1.</span> <span class="nav-text">设置HTTP方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST提交数据"><span class="nav-number">1.2.</span> <span class="nav-text">POST提交数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数分隔符"><span class="nav-number">1.3.</span> <span class="nav-text">参数分隔符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置Cookie"><span class="nav-number">1.4.</span> <span class="nav-text">设置Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#User-Agent"><span class="nav-number">1.5.</span> <span class="nav-text">User-Agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Referer"><span class="nav-number">1.6.</span> <span class="nav-text">Referer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Header"><span class="nav-number">1.7.</span> <span class="nav-text">Header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注入位置"><span class="nav-number">1.8.</span> <span class="nav-text">注入位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">1.9.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-性能优化"><span class="nav-number">2.</span> <span class="nav-text">Part 2 性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#持久HTTP连接"><span class="nav-number">2.1.</span> <span class="nav-text">持久HTTP连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不接收HTTP-Body"><span class="nav-number">2.2.</span> <span class="nav-text">不接收HTTP Body</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程"><span class="nav-number">2.3.</span> <span class="nav-text">多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预测输出"><span class="nav-number">2.4.</span> <span class="nav-text">预测输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-3-枚举"><span class="nav-number">3.</span> <span class="nav-text">Part 3 枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-4-Tamper"><span class="nav-number">4.</span> <span class="nav-text">Part 4 Tamper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tamper-脚本结构"><span class="nav-number">4.1.</span> <span class="nav-text">Tamper 脚本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用Tamper"><span class="nav-number">4.2.</span> <span class="nav-text">通用Tamper</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -578,6 +849,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

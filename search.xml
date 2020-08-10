@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>利用环境变量 LD_PRELOAD bypass_disablefunc</title>
+    <url>/2020/08/10/bypass-disablefunc/</url>
+    <content><![CDATA[<h1 id="Part-1-前言"><a href="#Part-1-前言" class="headerlink" title="Part 1  前言"></a>Part 1  前言</h1><p>有时候会遇到虽然有了<code>webshell</code>，但无法执行命令,基本上是由于<code>disablefunctions</code>禁止了如<code>system</code>等命令执行的相关函数，这次稍微学习了一点利用<code>LD_PRELOAD</code>劫持正常函数库来bypass。</p>
+<h1 id="Part-2-原理"><a href="#Part-2-原理" class="headerlink" title="Part 2 原理"></a>Part 2 原理</h1><p><code>LD_PRELOAD</code>是<code>linux</code>下的用于动态库加载的环境变量,它的加载优先级最高<br><code>（LD_PRELOAD&gt;LD_LIBRARY_PATH&gt;/etc/ld.so.cache&gt;/lib&gt;/usr/lib）</code></p>
+<p><code>php</code>中可以使用<code>putenv()</code>来临时加载环境变量</p>
+<figure class="highlight mel"><table><tr><td class="code"><pre><span class="line"><span class="keyword">putenv</span> ( <span class="keyword">string</span> $setting ) : bool</span><br><span class="line">添加setting到服务器环境。环境变量仅在当前请求的持续时间内存在。在请求结束时，环境将恢复到其原始状态。</span><br></pre></td></tr></table></figure>
+<p>如果可以使用该函数，可以按照如下步骤劫持并<code>rce</code><br><figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.编写恶意动态连接程序编译成.so文件并上传</span><br><span class="line"><span class="number">2</span>.利用`putenv`设置`LD_PRELOAD`为上传的恶意.so文件路径</span><br><span class="line"><span class="number">3</span>.配合`mail`，`error_log`等函数触发恶意的.so文件</span><br><span class="line"><span class="number">4</span>.`rce`</span><br></pre></td></tr></table></figure></p>
+<p><code>mail</code>,<code>error_log</code>在运行的时候能够启动子进程，这样才能重新加载我们所设置的环境变量，从而劫持子进程所调用的库函数。</p>
+<h1 id="Part-3-AntSword-Labs环境"><a href="#Part-3-AntSword-Labs环境" class="headerlink" title="Part 3 AntSword-Labs环境"></a>Part 3 AntSword-Labs环境</h1><p>这里使用<code>wsl2</code>+<code>docker</code>搭建<code>AntSword-Labs</code>的环境<br><img src="/2020/08/10/bypass-disablefunc/1.png" alt="PHPHINFO"><br>查看phpinfo<br><img src="/2020/08/10/bypass-disablefunc/2.png" alt="PHPHINFO"><br>给出了<code>webshell</code>，但无法执行命令,<br>这里直接通过<code>蚁剑</code>的插件<code>bypass</code><br><img src="/2020/08/10/bypass-disablefunc/3.png" alt="bypass"><br>会将恶意动态加载库文件上传至能读写的<code>/tmp</code>目录<br><img src="/2020/08/10/bypass-disablefunc/4.png" alt="bypass"><br>前两个文件是<code>蚁剑</code>上传的,其他的是我自己编译上传测试的</p>
+<p>通过如下脚本来重新加载环境变量<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  putenv(<span class="string">"LD_PRELOAD=/tmp/xxx.so"</span>);</span><br><span class="line">  error_log(<span class="string">"a"</span>,<span class="number">1</span>);</span><br><span class="line">  mail(<span class="string">"a@localhost"</span>,<span class="string">""</span>,<span class="string">""</span>,<span class="string">""</span>,<span class="string">""</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><br><code>xxx.so</code>调用<code>php</code>开一一个默认配置的<code>phpServer</code>，并在<code>web</code>目录生成了<code>.antproxy.php</code>，与新<code>PHPServer</code>建立<code>Socket</code>连接，转发流量到<code>index.php</code>一句话执行命令.<br>使用<code>蚁剑</code>连接<code>.antproxy.php</code>文件，就可以通过默认配置的<code>phpServer</code>执行命令了</p>
+<p><img src="/2020/08/10/bypass-disablefunc/5.png" alt></p>
+<p>需要注意的是,如果<code>mail()</code>和<code>error_log()</code>函数被禁用或者<code>sendmail</code>受到限制，插件就用不了了，可以试试这个<br><a href="https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD" target="_blank" rel="noopener">https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD</a></p>
+]]></content>
+      <tags>
+        <tag>php</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode乱刷记录(1)</title>
     <url>/2020/07/24/LeetCode-1/</url>
     <content><![CDATA[<h1 id="No-53-最大子序和"><a href="#No-53-最大子序和" class="headerlink" title="No 53. 最大子序和"></a>No 53. 最大子序和</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line">输入: [<span class="number">-2</span>,<span class="number">1</span>,<span class="number">-3</span>,<span class="number">4</span>,<span class="number">-1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">-5</span>,<span class="number">4</span>],</span><br><span class="line">输出: <span class="number">6</span></span><br><span class="line">解释: 连续子数组 [<span class="number">4</span>,<span class="number">-1</span>,<span class="number">2</span>,<span class="number">1</span>] 的和最大，为 <span class="number">6</span>。</span><br></pre></td></tr></table></figure>

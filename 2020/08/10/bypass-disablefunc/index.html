@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="php," />
 
 
 
@@ -86,14 +86,22 @@
 
 
 
-<meta name="description" content="I spent all my expression and fled from the crowd">
-<meta property="og:type" content="website">
-<meta property="og:title" content="君の银の庭">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;categories&#x2F;CTF-WEB&#x2F;index.html">
+<meta name="description" content="Part 1  前言有时候会遇到虽然有了webshell，但无法执行命令,基本上是由于disablefunctions禁止了如system等命令执行的相关函数，这次稍微学习了一点利用LD_PRELOAD劫持正常函数库来bypass。 Part 2 原理LD_PRELOAD是linux下的用于动态库加载的环境变量,它的加载优先级最高（LD_PRELOAD&amp;gt;LD_LIBRARY_PATH&amp;gt;">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用环境变量 LD_PRELOAD bypass_disablefunc">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;10&#x2F;bypass-disablefunc&#x2F;index.html">
 <meta property="og:site_name" content="君の银の庭">
-<meta property="og:description" content="I spent all my expression and fled from the crowd">
+<meta property="og:description" content="Part 1  前言有时候会遇到虽然有了webshell，但无法执行命令,基本上是由于disablefunctions禁止了如system等命令执行的相关函数，这次稍微学习了一点利用LD_PRELOAD劫持正常函数库来bypass。 Part 2 原理LD_PRELOAD是linux下的用于动态库加载的环境变量,它的加载优先级最高（LD_PRELOAD&amp;gt;LD_LIBRARY_PATH&amp;gt;">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;10&#x2F;bypass-disablefunc&#x2F;1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;10&#x2F;bypass-disablefunc&#x2F;2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;10&#x2F;bypass-disablefunc&#x2F;3.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;10&#x2F;bypass-disablefunc&#x2F;4.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;10&#x2F;bypass-disablefunc&#x2F;5.png">
+<meta property="og:updated_time" content="2020-08-10T15:59:08.697Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;10&#x2F;bypass-disablefunc&#x2F;1.png">
 
 
 
@@ -123,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/CTF-WEB/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/08/10/bypass-disablefunc/"/>
 
 
 
 
 
-  <title>分类: CTF-WEB | 君の银の庭</title>
+  <title>利用环境变量 LD_PRELOAD bypass_disablefunc | 君の银の庭</title>
   
 
 
@@ -152,7 +160,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -270,55 +278,187 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>CTF-WEB<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/10/bypass-disablefunc/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L42y">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="君の银の庭">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/11/29/qwb-upload/" itemprop="url">
-              
-                <span itemprop="name">强网杯2019-web-upload</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">利用环境变量 LD_PRELOAD bypass_disablefunc</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-29T23:19:59+08:00"
-              content="2019-11-29" >
-          11-29
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-10T23:05:31+08:00">
+                2020-08-10
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  515
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Part-1-前言"><a href="#Part-1-前言" class="headerlink" title="Part 1  前言"></a>Part 1  前言</h1><p>有时候会遇到虽然有了<code>webshell</code>，但无法执行命令,基本上是由于<code>disablefunctions</code>禁止了如<code>system</code>等命令执行的相关函数，这次稍微学习了一点利用<code>LD_PRELOAD</code>劫持正常函数库来bypass。</p>
+<h1 id="Part-2-原理"><a href="#Part-2-原理" class="headerlink" title="Part 2 原理"></a>Part 2 原理</h1><p><code>LD_PRELOAD</code>是<code>linux</code>下的用于动态库加载的环境变量,它的加载优先级最高<br><code>（LD_PRELOAD&gt;LD_LIBRARY_PATH&gt;/etc/ld.so.cache&gt;/lib&gt;/usr/lib）</code></p>
+<p><code>php</code>中可以使用<code>putenv()</code>来临时加载环境变量</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">putenv</span> ( <span class="keyword">string</span> $setting ) : bool</span><br><span class="line">添加setting到服务器环境。环境变量仅在当前请求的持续时间内存在。在请求结束时，环境将恢复到其原始状态。</span><br></pre></td></tr></table></figure>
+<p>如果可以使用该函数，可以按照如下步骤劫持并<code>rce</code><br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.编写恶意动态连接程序编译成.so文件并上传</span><br><span class="line"><span class="number">2</span>.利用`putenv`设置`LD_PRELOAD`为上传的恶意.so文件路径</span><br><span class="line"><span class="number">3</span>.配合`mail`，`error_log`等函数触发恶意的.so文件</span><br><span class="line"><span class="number">4</span>.`rce`</span><br></pre></td></tr></table></figure></p>
+<p><code>mail</code>,<code>error_log</code>在运行的时候能够启动子进程，这样才能重新加载我们所设置的环境变量，从而劫持子进程所调用的库函数。</p>
+<h1 id="Part-3-AntSword-Labs环境"><a href="#Part-3-AntSword-Labs环境" class="headerlink" title="Part 3 AntSword-Labs环境"></a>Part 3 AntSword-Labs环境</h1><p>这里使用<code>wsl2</code>+<code>docker</code>搭建<code>AntSword-Labs</code>的环境<br><img src="/2020/08/10/bypass-disablefunc/1.png" alt="PHPHINFO"><br>查看phpinfo<br><img src="/2020/08/10/bypass-disablefunc/2.png" alt="PHPHINFO"><br>给出了<code>webshell</code>，但无法执行命令,<br>这里直接通过<code>蚁剑</code>的插件<code>bypass</code><br><img src="/2020/08/10/bypass-disablefunc/3.png" alt="bypass"><br>会将恶意动态加载库文件上传至能读写的<code>/tmp</code>目录<br><img src="/2020/08/10/bypass-disablefunc/4.png" alt="bypass"><br>前两个文件是<code>蚁剑</code>上传的,其他的是我自己编译上传测试的</p>
+<p>通过如下脚本来重新加载环境变量<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  putenv(<span class="string">"LD_PRELOAD=/tmp/xxx.so"</span>);</span><br><span class="line">  error_log(<span class="string">"a"</span>,<span class="number">1</span>);</span><br><span class="line">  mail(<span class="string">"a@localhost"</span>,<span class="string">""</span>,<span class="string">""</span>,<span class="string">""</span>,<span class="string">""</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><br><code>xxx.so</code>调用<code>php</code>开一一个默认配置的<code>phpServer</code>，并在<code>web</code>目录生成了<code>.antproxy.php</code>，与新<code>PHPServer</code>建立<code>Socket</code>连接，转发流量到<code>index.php</code>一句话执行命令.<br>使用<code>蚁剑</code>连接<code>.antproxy.php</code>文件，就可以通过默认配置的<code>phpServer</code>执行命令了</p>
+<p><img src="/2020/08/10/bypass-disablefunc/5.png" alt></p>
+<p>需要注意的是,如果<code>mail()</code>和<code>error_log()</code>函数被禁用或者<code>sendmail</code>受到限制，插件就用不了了，可以试试这个<br><a href="https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD" target="_blank" rel="noopener">https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD</a></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php/" rel="tag"># php</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/24/LeetCode-1/" rel="next" title="LeetCode乱刷记录(1)">
+                <i class="fa fa-chevron-left"></i> LeetCode乱刷记录(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -326,6 +466,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -346,8 +490,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -427,6 +580,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1-前言"><span class="nav-number">1.</span> <span class="nav-text">Part 1  前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2-原理"><span class="nav-number">2.</span> <span class="nav-text">Part 2 原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-3-AntSword-Labs环境"><span class="nav-number">3.</span> <span class="nav-text">Part 3 AntSword-Labs环境</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -579,6 +748,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
